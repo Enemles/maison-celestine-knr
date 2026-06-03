@@ -1,0 +1,23 @@
+{%- if section.settings.text != blank -%}
+  <div class="knr-announcement">
+    <p class="knr-announcement__text">
+      {{ section.settings.text }}
+      {%- if section.settings.cta_text != blank -%}
+        <a class="knr-announcement__cta" href="{{ section.settings.cta_url | default: '#' }}">{{ section.settings.cta_text }}</a>
+      {%- endif -%}
+    </p>
+  </div>
+{%- endif -%}
+
+{{ 'knr-announcement.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "KNR Annonce",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Texte", "default": "Livraison estimée sous 48h" },
+    { "type": "text", "id": "cta_text", "label": "Texte du lien", "default": "consectetur." },
+    { "type": "url", "id": "cta_url", "label": "Lien" }
+  ]
+}
+{% endschema %}

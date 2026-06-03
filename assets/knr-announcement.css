@@ -1,0 +1,17 @@
+.knr-announcement {
+  background: #000;
+  color: #fff;
+  text-align: center;
+}
+
+.knr-announcement__text {
+  margin: 0;
+  padding: 0.7rem 1rem;
+  font-size: 0.875rem;
+}
+
+.knr-announcement__cta {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

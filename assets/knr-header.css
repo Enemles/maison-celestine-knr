@@ -1,0 +1,72 @@
+.knr-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  min-height: 56px;
+  color: #000000;
+}
+
+.knr-header__logo {
+  display: inline-flex;
+}
+.knr-header__logo svg {
+  height: 17px;
+  width: auto;
+}
+.knr-header__logo svg [fill] {
+  fill: currentColor;
+}
+
+.knr-header__nav {
+  display: flex;
+  gap: 24px;
+}
+
+.knr-header__link {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.knr-header__icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.knr-header__icon {
+  display: inline-flex;
+  position: relative;
+  color: inherit;
+}
+.knr-header__icon svg {
+  width: 18px;
+  height: 18px;
+}
+.knr-header__icon svg [stroke] {
+  stroke: currentColor;
+}
+
+.knr-header__cart-count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 100px;
+  background: #000000;
+  color: #fff;
+  font-size: 0.62rem;
+  line-height: 16px;
+  text-align: center;
+}
+
+@media (max-width: 749px) {
+  .knr-header__nav {
+    display: none;
+  }
+}
