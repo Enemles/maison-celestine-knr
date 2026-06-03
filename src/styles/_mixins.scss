@@ -8,3 +8,40 @@ $breakpoint: 750px;
 @mixin mobile {
   @media (max-width: ($breakpoint - 1px)) { @content; }
 }
+
+// Typographie — Inter, letter-spacing -2% sur tous les styles
+@mixin text-hs1 {
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: -0.02em;
+}
+
+@mixin text-hs2 {
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.02em;
+}
+
+@mixin text-cta {
+  font-size: 13px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
+
+@mixin text-body {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+}
+
+@mixin text-body-s {
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+}
+
+@mixin text-body-xs {
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: -0.02em;
+}

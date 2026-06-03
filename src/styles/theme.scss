@@ -1,6 +1,11 @@
 @use "tokens" as *;
 @use "mixins" as *;
 
+// Skeleton impose un grid sur chaque .shopify-section ; on gère nos propres layouts.
+.shopify-section {
+  display: block;
+}
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -14,6 +19,7 @@ body {
   background: $color-bg;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  @include text-body;
 }
 
 img,

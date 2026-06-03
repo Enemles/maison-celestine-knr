@@ -1,12 +1,14 @@
 //  Design tokens
 
-$color-bg:     #ffffff;
-$color-text:   #1a1a1a;
+$color-bg:     #f9f8f5;
+$color-text:   #000000;
 $color-muted:  #6b6b6b;
 $color-line:   #e6e2db;
-$color-accent: #1a1a1a;
+$color-accent: #000000;
+$color-gold:   #b5a282;
+$color-faded:  rgba(0, 0, 0, 0.24);
 
-$font-primary: "Area Normal", -apple-system, "Helvetica Neue", Arial, sans-serif;
+$font-primary: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
 
 $design-desktop: 1440px;
 $design-mobile:  390px;
