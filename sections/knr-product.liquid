@@ -1,0 +1,61 @@
+{%- assign variant = product.selected_or_first_available_variant -%}
+<section class="knr-product">
+  <div class="knr-product__gallery">
+    {%- for media in product.media -%}
+      {{ media | image_url: width: 1000 | image_tag: loading: 'lazy', class: 'knr-product__img' }}
+    {%- else -%}
+      <div class="knr-product__img knr-product__img--empty"></div>
+    {%- endfor -%}
+  </div>
+
+  <div class="knr-product__info">
+    {%- if product.collections.first -%}
+      <nav class="knr-product__crumb" aria-label="Fil d'Ariane">
+        <a href="{{ routes.root_url }}">Accueil</a>
+        <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+        <span aria-current="page">{{ product.title }}</span>
+      </nav>
+    {%- endif -%}
+
+    <h1 class="knr-product__title">{{ product.title }}</h1>
+
+    <p class="knr-product__price">
+      <span class="knr-product__price-current">{{ variant.price | money }}</span>
+      {%- if variant.compare_at_price > variant.price -%}
+        <s class="knr-product__price-compare">{{ variant.compare_at_price | money }}</s>
+      {%- endif -%}
+    </p>
+
+    {%- form 'product', product, class: 'knr-product__form' -%}
+      {%- unless product.has_only_default_variant -%}
+        <label class="knr-product__option">
+          <span class="knr-product__option-label">{{ product.options.first }}</span>
+          <select name="id" class="knr-product__select">
+            {%- for v in product.variants -%}
+              <option value="{{ v.id }}"{% if v == variant %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }} — {{ v.price | money }}</option>
+            {%- endfor -%}
+          </select>
+        </label>
+      {%- else -%}
+        <input type="hidden" name="id" value="{{ variant.id }}">
+      {%- endunless -%}
+
+      <button type="submit" name="add" class="knr-product__add"{% unless variant.available %} disabled{% endunless %}>
+        {%- if variant.available -%}Ajouter au panier{%- else -%}Indisponible{%- endif -%}
+      </button>
+    {%- endform -%}
+
+    {%- if product.description != blank -%}
+      <div class="knr-product__desc">{{ product.description }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{{ 'knr-product.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "KNR Produit",
+  "settings": []
+}
+{% endschema %}

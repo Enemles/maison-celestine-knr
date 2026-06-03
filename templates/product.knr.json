@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "main": {
+      "type": "knr-product"
+    }
+  },
+  "order": ["main"]
+}
