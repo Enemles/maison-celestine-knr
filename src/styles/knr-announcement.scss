@@ -1,15 +1,24 @@
 @use "tokens" as *;
+@use "mixins" as *;
 
 .knr-announcement {
+  overflow: hidden;
+  max-height: 80px;
   background: #000;
   color: #fff;
   text-align: center;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
+}
+
+.knr-header-group.is-scrolled .knr-announcement {
+  max-height: 0;
+  opacity: 0;
 }
 
 .knr-announcement__text {
+  @include text-body;
   margin: 0;
   padding: 0.7rem 1rem;
-  font-size: 0.875rem;
 }
 
 .knr-announcement__cta {
