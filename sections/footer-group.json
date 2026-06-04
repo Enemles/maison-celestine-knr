@@ -1,25 +1,26 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "footer",
   "name": "t:general.footer",
   "sections": {
-    "footer": {
-      "type": "footer",
+    "knr-footer": {
+      "type": "knr-footer",
       "settings": {
-        "menu": "",
-        "show_payment_icons": true
+        "heading_1": "Découvrir",
+        "menu_1": "footer-decouvrir",
+        "heading_2": "Service client",
+        "menu_2": "footer-service",
+        "heading_3": "Légal & Transparence",
+        "menu_3": "footer-legal",
+        "info_heading": "À propos de Maison Célestine",
+        "info_text": "Maison Célestine est une marque de soins anti-âge haut de gamme formulée autour d'actifs rares et certifiés biologiques, guidée par une expertise médicale et un rituel simple, précis et efficace.",
+        "cert_text": "Certifié COSMOS ORGANIC par ECOCERT Greenlife",
+        "cert_cta_text": "Voir le certificat",
+        "facebook": "#",
+        "instagram": "#",
+        "tiktok": "#",
+        "linkedin": "#"
       }
     }
   },
-  "order": [
-    "footer"
-  ]
+  "order": ["knr-footer"]
 }

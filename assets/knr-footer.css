@@ -1,0 +1,145 @@
+.knr-footer {
+  background: #f9f8f5;
+  color: #000000;
+  padding: 80px 40px 0;
+}
+
+.knr-footer__top {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 1.5fr;
+  gap: 40px;
+}
+
+.knr-footer__heading {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  margin: 0 0 2rem;
+}
+
+.knr-footer__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.knr-footer__link {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  color: #000000;
+}
+.knr-footer__link:hover {
+  opacity: 0.6;
+}
+
+.knr-footer__about {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+  max-width: 42ch;
+}
+
+.knr-footer__cert-logo {
+  width: 48px;
+  height: auto;
+  margin-bottom: 0.85rem;
+}
+
+.knr-footer__cert-text {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.knr-footer__cert-cta {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  display: block;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.24);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.knr-footer__wordmark {
+  color: #000000;
+  padding: 2.5rem 0 5rem;
+}
+.knr-footer__wordmark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.knr-footer__wordmark svg [fill] {
+  fill: currentColor;
+}
+
+.knr-footer__bottom {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.75rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.24);
+}
+
+.knr-footer__meta {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.knr-footer__select {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+.knr-footer__select .knr-chevron {
+  width: 11px;
+  height: 11px;
+}
+
+.knr-footer__copy {
+  margin: 0;
+}
+
+.knr-footer__social {
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.knr-footer__social-link {
+  display: inline-flex;
+  color: #000000;
+}
+.knr-footer__social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 749px) {
+  .knr-footer {
+    padding: 48px 24px 0;
+  }
+  .knr-footer__top {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+  }
+  .knr-footer__bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}

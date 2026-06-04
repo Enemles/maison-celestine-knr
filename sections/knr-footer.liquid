@@ -1,0 +1,84 @@
+<footer class="knr-footer">
+  <div class="knr-footer__top">
+    {%- for i in (1..3) -%}
+      {%- liquid
+        assign hkey = 'heading_' | append: i
+        assign mkey = 'menu_' | append: i
+        assign heading = section.settings[hkey]
+        assign menu = section.settings[mkey]
+      -%}
+      <div class="knr-footer__col">
+        {%- if heading != blank -%}<h2 class="knr-footer__heading">{{ heading }}</h2>{%- endif -%}
+        {%- if menu != blank -%}
+          <ul class="knr-footer__links">
+            {%- for link in menu.links -%}
+              <li><a class="knr-footer__link" href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+
+    <div class="knr-footer__col knr-footer__col--about">
+      {%- if section.settings.info_heading != blank -%}<h2 class="knr-footer__heading">{{ section.settings.info_heading }}</h2>{%- endif -%}
+      {%- if section.settings.info_text != blank -%}<p class="knr-footer__about">{{ section.settings.info_text }}</p>{%- endif -%}
+      {%- if section.settings.cert_image != blank -%}
+        {{ section.settings.cert_image | image_url: width: 120 | image_tag: class: 'knr-footer__cert-logo', loading: 'lazy', alt: '' }}
+      {%- endif -%}
+      {%- if section.settings.cert_text != blank -%}<p class="knr-footer__cert-text">{{ section.settings.cert_text }}</p>{%- endif -%}
+      {%- if section.settings.cert_cta_text != blank -%}
+        <a class="knr-footer__cert-cta" href="{{ section.settings.cert_cta_url | default: '#' }}">{{ section.settings.cert_cta_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="knr-footer__wordmark" aria-hidden="true">
+    {{ 'knr-logo.svg' | inline_asset_content }}
+  </div>
+
+  <div class="knr-footer__bottom">
+    <div class="knr-footer__meta">
+      {%- if localization.country -%}<span class="knr-footer__select">{{ localization.country.name }} ({{ localization.country.currency.iso_code }}){% render 'knr-chevron' %}</span>{%- endif -%}
+      {%- if localization.language -%}<span class="knr-footer__select">{{ localization.language.endonym_name | capitalize }}{% render 'knr-chevron' %}</span>{%- endif -%}
+    </div>
+
+    <p class="knr-footer__copy">© {{ 'now' | date: '%Y' }} {{ shop.name }}. Tous droits réservés.</p>
+
+    <ul class="knr-footer__social">
+      {%- assign socials = 'facebook,instagram,tiktok,linkedin' | split: ',' -%}
+      {%- for s in socials -%}
+        {%- assign url = section.settings[s] -%}
+        {%- if url != blank -%}
+          {%- assign icon = 'knr-social-' | append: s | append: '.svg' -%}
+          <li><a class="knr-footer__social-link" href="{{ url }}" aria-label="{{ s | capitalize }}">{{ icon | inline_asset_content }}</a></li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</footer>
+
+{{ 'knr-footer.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "KNR Footer",
+  "settings": [
+    { "type": "text", "id": "heading_1", "label": "Colonne 1 — titre" },
+    { "type": "link_list", "id": "menu_1", "label": "Colonne 1 — menu" },
+    { "type": "text", "id": "heading_2", "label": "Colonne 2 — titre" },
+    { "type": "link_list", "id": "menu_2", "label": "Colonne 2 — menu" },
+    { "type": "text", "id": "heading_3", "label": "Colonne 3 — titre" },
+    { "type": "link_list", "id": "menu_3", "label": "Colonne 3 — menu" },
+    { "type": "text", "id": "info_heading", "label": "À propos — titre" },
+    { "type": "textarea", "id": "info_text", "label": "À propos — texte" },
+    { "type": "image_picker", "id": "cert_image", "label": "Logo certification" },
+    { "type": "text", "id": "cert_text", "label": "Texte certification" },
+    { "type": "text", "id": "cert_cta_text", "label": "CTA — texte" },
+    { "type": "url", "id": "cert_cta_url", "label": "CTA — lien" },
+    { "type": "url", "id": "facebook", "label": "Facebook" },
+    { "type": "url", "id": "instagram", "label": "Instagram" },
+    { "type": "url", "id": "tiktok", "label": "TikTok" },
+    { "type": "url", "id": "linkedin", "label": "LinkedIn" }
+  ]
+}
+{% endschema %}

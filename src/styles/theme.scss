@@ -22,6 +22,19 @@ body {
   @include text-body;
 }
 
+// Reset des titres : on neutralise le gras/la taille du user-agent,
+// les titres sont stylés explicitement via les mixins (text-hs1, text-body…).
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
 img,
 picture,
 svg { display: block; max-width: 100%; }
