@@ -6,6 +6,20 @@
   display: block;
 }
 
+// Header fixe en overlay : transparent par-dessus le contenu, opaque au scroll.
+.knr-header-group {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: background-color 0.3s ease;
+}
+
+.knr-header-group.is-scrolled {
+  background: $color-bg;
+}
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -22,8 +36,7 @@ body {
   @include text-body;
 }
 
-// Reset des titres : on neutralise le gras/la taille du user-agent,
-// les titres sont stylés explicitement via les mixins (text-hs1, text-body…).
+// Reset des titres : on neutralise le gras/la taille du user-agent.
 h1,
 h2,
 h3,

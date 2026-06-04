@@ -2,6 +2,19 @@
   display: block;
 }
 
+.knr-header-group {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: background-color 0.3s ease;
+}
+
+.knr-header-group.is-scrolled {
+  background: #f9f8f5;
+}
+
 *,
 *::before,
 *::after {
