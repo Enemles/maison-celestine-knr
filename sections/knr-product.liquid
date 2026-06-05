@@ -1,61 +1,283 @@
 {%- assign variant = product.selected_or_first_available_variant -%}
-<section class="knr-product">
+{%- assign m = product.metafields.custom -%}
+{%- assign crumb_collection = null -%}
+{%- for c in product.collections -%}
+  {%- unless c.handle == 'frontpage' -%}{%- assign crumb_collection = c -%}{%- break -%}{%- endunless -%}
+{%- endfor -%}
+
+<section class="knr-product" data-product>
   <div class="knr-product__gallery">
-    {%- for media in product.media -%}
-      {{ media | image_url: width: 1000 | image_tag: loading: 'lazy', class: 'knr-product__img' }}
+    {%- if product.media.size > 0 -%}
+      {%- for media in product.media limit: 1 -%}
+        <figure class="knr-product__slide knr-product__slide--hero" data-zoom="{{ media | image_url: width: 2000 }}">
+          {{ media | image_url: width: 2400 | image_tag: loading: 'eager', sizes: '100vw', class: 'knr-product__img' }}
+          <button type="button" class="knr-product__zoom" aria-label="Agrandir l'image">{{ 'knr-icon-plus.svg' | inline_asset_content }}</button>
+        </figure>
+      {%- endfor -%}
+      {%- if product.media.size > 1 -%}
+        <div class="knr-product__rest">
+          {%- for media in product.media offset: 1 -%}
+            <figure class="knr-product__slide" data-zoom="{{ media | image_url: width: 2000 }}">
+              {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 32vw, 100vw', class: 'knr-product__img' }}
+              <button type="button" class="knr-product__zoom" aria-label="Agrandir l'image">{{ 'knr-icon-plus.svg' | inline_asset_content }}</button>
+            </figure>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     {%- else -%}
-      <div class="knr-product__img knr-product__img--empty"></div>
-    {%- endfor -%}
+      <figure class="knr-product__slide knr-product__slide--hero knr-product__slide--empty"></figure>
+    {%- endif -%}
   </div>
 
   <div class="knr-product__info">
-    {%- if product.collections.first -%}
-      <nav class="knr-product__crumb" aria-label="Fil d'Ariane">
-        <a href="{{ routes.root_url }}">Accueil</a>
-        <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
-        <span aria-current="page">{{ product.title }}</span>
-      </nav>
-    {%- endif -%}
-
-    <h1 class="knr-product__title">{{ product.title }}</h1>
-
-    <p class="knr-product__price">
-      <span class="knr-product__price-current">{{ variant.price | money }}</span>
-      {%- if variant.compare_at_price > variant.price -%}
-        <s class="knr-product__price-compare">{{ variant.compare_at_price | money }}</s>
-      {%- endif -%}
-    </p>
-
     {%- form 'product', product, class: 'knr-product__form' -%}
-      {%- unless product.has_only_default_variant -%}
-        <label class="knr-product__option">
-          <span class="knr-product__option-label">{{ product.options.first }}</span>
-          <select name="id" class="knr-product__select">
-            {%- for v in product.variants -%}
-              <option value="{{ v.id }}"{% if v == variant %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }} — {{ v.price | money }}</option>
-            {%- endfor -%}
-          </select>
-        </label>
-      {%- else -%}
-        <input type="hidden" name="id" value="{{ variant.id }}">
-      {%- endunless -%}
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
 
-      <button type="submit" name="add" class="knr-product__add"{% unless variant.available %} disabled{% endunless %}>
-        {%- if variant.available -%}Ajouter au panier{%- else -%}Indisponible{%- endif -%}
-      </button>
+          {%- when 'breadcrumb' -%}
+            <p class="knr-product__crumb" {{ block.shopify_attributes }}>
+              {{- product.type | default: 'Soins anti-âge' -}}
+              {%- if crumb_collection %} / {{ crumb_collection.title }}{% endif -%}
+            </p>
+
+          {%- when 'badges' -%}
+            {%- if m.benefits != blank -%}
+              <ul class="knr-product__badges" {{ block.shopify_attributes }}>
+                {%- for benefit in m.benefits.value -%}
+                  <li class="knr-product__badge">{{ benefit }}</li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+          {%- when 'title' -%}
+            <div class="knr-product__head" {{ block.shopify_attributes }}>
+              <h1 class="knr-product__title">{{ product.title }}</h1>
+              <div class="knr-product__rating">
+                <span class="knr-product__rating-row">
+                  <span class="knr-product__stars" aria-hidden="true">
+                    {%- for i in (1..5) -%}{{ 'knr-icon-star.svg' | inline_asset_content }}{%- endfor -%}
+                  </span>
+                  <span class="knr-product__rating-score">{{ m.rating.value | default: 4.7 }}</span>
+                </span>
+                <span class="knr-product__rating-count">{{ m.rating_count.value | default: 200 }} avis</span>
+              </div>
+            </div>
+
+          {%- when 'indices' -%}
+            <p class="knr-product__indices" {{ block.shopify_attributes }}>
+              <span><strong>Yuka</strong> {{ m.yuka | default: '100/100' }}</span>
+              <span class="knr-product__indices-dot" aria-hidden="true"></span>
+              <span><strong>INCI Beauty</strong> {{ m.inci | default: '20/20' }}</span>
+            </p>
+
+          {%- when 'intro' -%}
+            {%- if m.intro != blank -%}
+              <div class="knr-product__intro" {{ block.shopify_attributes }}>{{ m.intro }}</div>
+            {%- endif -%}
+
+          {%- when 'variant_picker' -%}
+            {%- unless product.has_only_default_variant -%}
+              <fieldset class="knr-product__sizes" {{ block.shopify_attributes }}>
+                <legend class="knr-product__sizes-label">{{ product.options.first }}</legend>
+                <div class="knr-product__sizes-options">
+                  {%- for v in product.variants -%}
+                    <label class="knr-product__size{% if v == variant %} is-selected{% endif %}{% unless v.available %} is-unavailable{% endunless %}">
+                      <input type="radio" name="id" value="{{ v.id }}"
+                        {% if v == variant %}checked{% endif %}{% unless v.available %} disabled{% endunless %}>
+                      <span>{{ v.title }}</span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {%- else -%}
+              <input type="hidden" name="id" value="{{ variant.id }}">
+            {%- endunless -%}
+
+          {%- when 'price' -%}
+            <div class="knr-product__price" {{ block.shopify_attributes }}>
+              <span class="knr-product__price-row">
+                <span class="knr-product__price-current" data-price>{{ variant.price | money }}</span>
+                <s class="knr-product__price-compare" data-compare{% unless variant.compare_at_price > variant.price %} hidden{% endunless %}>{{ variant.compare_at_price | money }}</s>
+              </span>
+              <span class="knr-product__price-unit" data-unit{% unless variant.unit_price_measurement %} hidden{% endunless %}>
+                {%- if variant.unit_price_measurement -%}
+                  {{ variant.unit_price | money }} par {% if variant.unit_price_measurement.reference_value != 1 %}{{ variant.unit_price_measurement.reference_value }} {% endif %}{{ variant.unit_price_measurement.reference_unit }}
+                {%- endif -%}
+              </span>
+            </div>
+
+          {%- when 'buy_buttons' -%}
+            <button type="submit" name="add" class="knr-product__add" data-add{% unless variant.available %} disabled{% endunless %} {{ block.shopify_attributes }}>
+              {%- if variant.available -%}Ajouter au panier{%- else -%}Rupture de stock{%- endif -%}
+            </button>
+
+          {%- when 'reassurance' -%}
+            {%- assign idx = 0 -%}
+            <div class="knr-product__slider" data-slider {{ block.shopify_attributes }}>
+              <div class="knr-product__slides" data-slides>
+                {%- if block.settings.show_stock -%}
+                  <p class="knr-product__slide-msg is-active" data-slide>
+                    <span data-stock>
+                      {%- if variant.available -%}
+                        {%- assign secs = block.settings.ship_days | times: 86400 -%}
+                        {%- assign ship_ts = 'now' | date: '%s' | plus: secs -%}
+                        En stock, livraison estimée {{ ship_ts | date: '%A %-d %B' | capitalize }}.
+                      {%- else -%}
+                        Actuellement indisponible.
+                      {%- endif -%}
+                    </span>
+                  </p>
+                  {%- assign idx = 1 -%}
+                {%- endif -%}
+                {%- assign msgs = block.settings.message_1 | append: '||' | append: block.settings.message_2 | append: '||' | append: block.settings.message_3 | split: '||' -%}
+                {%- for msg in msgs -%}
+                  {%- if msg != blank -%}
+                    <p class="knr-product__slide-msg{% if idx == 0 %} is-active{% endif %}" data-slide>{{ msg }}</p>
+                    {%- assign idx = idx | plus: 1 -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+              {%- if idx > 1 -%}
+                <div class="knr-product__steps" data-dots>
+                  {%- for i in (1..idx) -%}
+                    <button type="button" class="knr-product__step{% if forloop.first %} is-active{% endif %}" data-dot aria-label="Message {{ forloop.index }}"></button>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
+
+          {%- when 'collapsibles' -%}
+            <div class="knr-product__accordions" data-accordions {{ block.shopify_attributes }}>
+              <details class="knr-product__acc" open>
+                <summary class="knr-product__acc-head"><span>Description</span><span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span></summary>
+                <div class="knr-product__acc-body rte">{{ product.description }}</div>
+              </details>
+              {%- if m.benefits_text != blank -%}
+                <details class="knr-product__acc">
+                  <summary class="knr-product__acc-head"><span>Bienfaits</span><span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span></summary>
+                  <div class="knr-product__acc-body rte">{{ m.benefits_text }}</div>
+                </details>
+              {%- endif -%}
+              {%- if m.ingredients != blank -%}
+                <details class="knr-product__acc">
+                  <summary class="knr-product__acc-head"><span>Ingrédients clés</span><span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span></summary>
+                  <div class="knr-product__acc-body rte">{{ m.ingredients }}</div>
+                </details>
+              {%- endif -%}
+              {%- if m.skin_types != blank -%}
+                <details class="knr-product__acc">
+                  <summary class="knr-product__acc-head"><span>Adapté aux peaux</span><span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span></summary>
+                  <div class="knr-product__acc-body rte">{{ m.skin_types }}</div>
+                </details>
+              {%- endif -%}
+            </div>
+
+          {%- when 'complementary' -%}
+            {%- assign related = product.metafields.shopify--discovery--product_recommendation.complementary_products.value -%}
+            {%- if related == blank -%}{%- assign related = block.settings.collection.products -%}{%- endif -%}
+            {%- if related == blank and crumb_collection != blank -%}{%- assign related = crumb_collection.products -%}{%- endif -%}
+            {%- if related != blank -%}
+              <div class="knr-product__related" {{ block.shopify_attributes }}>
+                <div class="knr-product__related-head">
+                  <span class="knr-product__related-title">{{ block.settings.title | default: 'Complétez votre rituel' }}</span>
+                  <span class="knr-product__related-arrow" aria-hidden="true">{{ 'knr-icon-arrow.svg' | inline_asset_content }}</span>
+                </div>
+                <div class="knr-product__related-grid">
+                  {%- assign shown = 0 -%}
+                  {%- for p in related -%}
+                    {%- if p.id != product.id and shown < 3 -%}
+                      {%- assign shown = shown | plus: 1 -%}
+                      <a href="{{ p.url }}" class="knr-product__card">
+                        <span class="knr-product__card-media">
+                          {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 320 | image_tag: loading: 'lazy', class: 'knr-product__card-img' }}{%- endif -%}
+                          <span class="knr-product__card-plus" aria-hidden="true">{{ 'knr-icon-plus.svg' | inline_asset_content }}</span>
+                        </span>
+                        <span class="knr-product__card-info">
+                          <span class="knr-product__card-name">{{ p.title }}</span>
+                          <span class="knr-product__card-price">{{ p.price | money }}</span>
+                        </span>
+                      </a>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endif -%}
+
+        {%- endcase -%}
+      {%- endfor -%}
     {%- endform -%}
-
-    {%- if product.description != blank -%}
-      <div class="knr-product__desc">{{ product.description }}</div>
-    {%- endif -%}
   </div>
+
+  <script type="application/json" data-variants>
+    [
+      {%- for v in product.variants -%}
+        {
+          "id": {{ v.id }},
+          "available": {{ v.available }},
+          "price": {{ v.price | money | json }},
+          "compareAt": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %},
+          "unit": {% if v.unit_price_measurement %}{{ v.unit_price | money | append: ' par ' | append: v.unit_price_measurement.reference_value | append: ' ' | append: v.unit_price_measurement.reference_unit | json }}{% else %}null{% endif %}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  </script>
 </section>
 
+<script src="{{ 'knr-product.js' | asset_url }}" defer></script>
 {{ 'knr-product.css' | asset_url | stylesheet_tag }}
 
 {% schema %}
 {
   "name": "KNR Produit",
-  "settings": []
+  "blocks": [
+    { "type": "breadcrumb", "name": "Fil d'Ariane", "limit": 1 },
+    { "type": "badges", "name": "Badges bienfaits", "limit": 1 },
+    { "type": "title", "name": "Titre + note", "limit": 1 },
+    { "type": "indices", "name": "Indices (Yuka / INCI)", "limit": 1 },
+    { "type": "intro", "name": "Accroche", "limit": 1 },
+    { "type": "variant_picker", "name": "Sélecteur de taille", "limit": 1 },
+    { "type": "price", "name": "Prix", "limit": 1 },
+    { "type": "buy_buttons", "name": "Bouton d'achat", "limit": 1 },
+    {
+      "type": "reassurance",
+      "name": "Réassurance (slider)",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "show_stock", "label": "Afficher disponibilité / livraison", "default": true },
+        { "type": "range", "id": "ship_days", "label": "Délai de livraison", "min": 1, "max": 14, "step": 1, "default": 2, "unit": "j" },
+        { "type": "text", "id": "message_1", "label": "Message 1", "default": "Paiement 100% sécurisé" },
+        { "type": "text", "id": "message_2", "label": "Message 2", "default": "Livraison offerte dès 60 €" },
+        { "type": "text", "id": "message_3", "label": "Message 3", "default": "Retours gratuits sous 30 jours" }
+      ]
+    },
+    { "type": "collapsibles", "name": "Accordéons", "limit": 1 },
+    {
+      "type": "complementary",
+      "name": "Complétez votre rituel",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Complétez votre rituel" },
+        { "type": "collection", "id": "collection", "label": "Collection (vide = collection du produit)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KNR Produit",
+      "blocks": [
+        { "type": "breadcrumb" },
+        { "type": "badges" },
+        { "type": "title" },
+        { "type": "indices" },
+        { "type": "intro" },
+        { "type": "variant_picker" },
+        { "type": "price" },
+        { "type": "buy_buttons" },
+        { "type": "reassurance" },
+        { "type": "collapsibles" },
+        { "type": "complementary" }
+      ]
+    }
+  ]
 }
 {% endschema %}

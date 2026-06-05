@@ -1,7 +1,21 @@
 {
   "sections": {
     "main": {
-      "type": "knr-product"
+      "type": "knr-product",
+      "blocks": {
+        "breadcrumb": { "type": "breadcrumb" },
+        "badges": { "type": "badges" },
+        "title": { "type": "title" },
+        "indices": { "type": "indices" },
+        "intro": { "type": "intro" },
+        "variant_picker": { "type": "variant_picker" },
+        "price": { "type": "price" },
+        "buy_buttons": { "type": "buy_buttons" },
+        "reassurance": { "type": "reassurance", "settings": { "show_stock": true, "ship_days": 2, "message_1": "Paiement 100% sécurisé", "message_2": "Livraison offerte dès 60 €", "message_3": "Retours gratuits sous 30 jours" } },
+        "collapsibles": { "type": "collapsibles" },
+        "complementary": { "type": "complementary", "settings": { "title": "Complétez votre rituel" } }
+      },
+      "block_order": ["breadcrumb", "badges", "title", "indices", "intro", "variant_picker", "price", "buy_buttons", "reassurance", "collapsibles", "complementary"]
     }
   },
   "order": ["main"]

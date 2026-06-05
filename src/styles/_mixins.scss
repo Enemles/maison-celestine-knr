@@ -9,11 +9,11 @@ $breakpoint: 750px;
   @media (max-width: ($breakpoint - 1px)) { @content; }
 }
 
-// Typographie — Inter, letter-spacing -2% sur tous les styles
+// Typographie — Inter, letter-spacing -2% (sauf hs1 : -4%)
 @mixin text-hs1 {
-  font-size: 36px;
-  line-height: 40px;
-  letter-spacing: -0.02em;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.04em;
 }
 
 @mixin text-hs2 {
