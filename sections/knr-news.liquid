@@ -1,0 +1,95 @@
+{%- liquid
+  assign blog = blogs[section.settings.blog]
+  assign use_blog = false
+  if section.settings.blog != blank and blog.articles_count > 0
+    assign use_blog = true
+  endif
+  assign limit = section.settings.count
+-%}
+
+<section class="knr-news" data-news>
+  <div class="knr-news__inner">
+    <div class="knr-news__head">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="knr-news__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.link_label != blank -%}
+        <a class="knr-news__all" href="{{ blog.url | default: section.settings.link_url | default: '#' }}">{{ section.settings.link_label }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="knr-news__grid">
+      {%- if use_blog -%}
+        {%- for article in blog.articles limit: limit -%}
+          <a class="knr-news__card" href="{{ article.url }}">
+            <div class="knr-news__media">
+              {%- if article.image -%}
+                {{ article.image | image_url: width: 668 | image_tag: class: 'knr-news__img', loading: 'lazy', widths: '334, 668', sizes: '(max-width: 749px) 45vw, 334px', alt: article.title | escape }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'knr-news__img knr-news__img--ph' }}
+              {%- endif -%}
+            </div>
+            {%- if article.tags.size > 0 -%}<span class="knr-news__label">{{ article.tags.first }}</span>{%- endif -%}
+            <h3 class="knr-news__card-title">{{ article.title }}</h3>
+            <p class="knr-news__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 18 }}</p>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          <a class="knr-news__card" href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+            <div class="knr-news__media">
+              {%- if block.settings.image -%}
+                {{ block.settings.image | image_url: width: 668 | image_tag: class: 'knr-news__img', loading: 'lazy', widths: '334, 668', sizes: '(max-width: 749px) 45vw, 334px', alt: block.settings.title | escape }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'knr-news__img knr-news__img--ph' }}
+              {%- endif -%}
+            </div>
+            {%- if block.settings.label != blank -%}<span class="knr-news__label">{{ block.settings.label }}</span>{%- endif -%}
+            <h3 class="knr-news__card-title">{{ block.settings.title }}</h3>
+            {%- if block.settings.body != blank -%}<p class="knr-news__excerpt">{{ block.settings.body }}</p>{%- endif -%}
+          </a>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{{ 'knr-news.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "KNR Journal",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Latest news" },
+    { "type": "text", "id": "link_label", "label": "Lien — texte", "default": "Voir tous les articles" },
+    { "type": "url", "id": "link_url", "label": "Lien — URL (si pas de blog)" },
+    { "type": "blog", "id": "blog", "label": "Blog source (sinon les blocs ci-dessous)" },
+    { "type": "range", "id": "count", "label": "Nombre d'articles", "min": 2, "max": 8, "step": 1, "default": 4 }
+  ],
+  "blocks": [
+    {
+      "type": "article",
+      "name": "Article",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Étiquette" },
+        { "type": "text", "id": "title", "label": "Titre" },
+        { "type": "textarea", "id": "body", "label": "Extrait" },
+        { "type": "url", "id": "url", "label": "Lien" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KNR Journal",
+      "blocks": [
+        { "type": "article", "settings": { "label": "L'origine", "title": "Fondée en 2012 dans les Alpes", "body": "Maison Célestine est née de la passion d'une botaniste pour les plantes alpines et leurs propriétés régénérantes exceptionnelles." } },
+        { "type": "article", "settings": { "label": "La formule", "title": "12 ingrédients actifs sélectionnés", "body": "Chaque ingrédient est sourcé chez des producteurs engagés : huile de rose musquée, rétinol végétal, extrait de cactus Cactacaea." } },
+        { "type": "article", "settings": { "label": "L'expertise", "title": "15 ans de recherche en laboratoire", "body": "Notre laboratoire indépendant teste chaque formule sur des panels de peaux diverses, garantissant efficacité et tolérance." } },
+        { "type": "article", "settings": { "label": "L'engagement", "title": "97 % d'origine naturelle", "body": "Emballages recyclables, formules biodégradables, compensation carbone intégrale. Beauté responsable, du champ au flacon." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

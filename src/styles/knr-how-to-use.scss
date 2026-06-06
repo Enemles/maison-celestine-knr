@@ -1,0 +1,88 @@
+@use "tokens" as *;
+@use "mixins" as *;
+
+.knr-htu {
+  background: $color-bg;
+  color: $color-text;
+  padding: 96px 40px;
+}
+
+.knr-htu__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.knr-htu__title {
+  margin: 0 0 48px;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.04em;
+}
+
+.knr-htu__intro {
+  @include text-body;
+  max-width: 560px;
+  margin: -32px 0 48px;
+  color: $color-muted;
+
+  p { margin: 0; }
+}
+
+.knr-htu__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+
+.knr-htu__step {
+  display: flex;
+  flex-direction: column;
+}
+
+.knr-htu__media {
+  aspect-ratio: 1 / 1;
+  margin-bottom: 24px;
+  overflow: hidden;
+  background: $color-line;
+}
+
+.knr-htu__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.knr-htu__num {
+  @include text-body-xs;
+  margin: 0 0 12px;
+  color: $color-gold;
+  letter-spacing: 0.04em;
+}
+
+.knr-htu__step-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+}
+
+.knr-htu__step-body {
+  @include text-body;
+  color: $color-muted;
+
+  p { margin: 0; }
+}
+
+@include mobile {
+  .knr-htu { padding: 56px 20px; }
+  .knr-htu__title { font-size: 26px; line-height: 32px; margin-bottom: 32px; }
+  .knr-htu__intro { margin: -16px 0 32px; }
+  .knr-htu__steps {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

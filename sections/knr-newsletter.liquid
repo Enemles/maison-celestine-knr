@@ -1,0 +1,83 @@
+<section
+  class="knr-newsletter knr-newsletter--image-{{ section.settings.image_position | default: 'left' }}"
+  data-newsletter
+>
+  <div class="knr-newsletter__media">
+    {%- if section.settings.image -%}
+      {{
+        section.settings.image
+        | image_url: width: 1360
+        | image_tag:
+          class: 'knr-newsletter__img',
+          loading: 'lazy',
+          widths: '680, 1024, 1360',
+          sizes: '(max-width: 749px) 100vw, 50vw',
+          alt: ''
+      }}
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'knr-newsletter__img knr-newsletter__img--ph' }}
+    {%- endif -%}
+  </div>
+
+  <div class="knr-newsletter__content">
+    <div class="knr-newsletter__inner">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="knr-newsletter__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- form 'customer', class: 'knr-newsletter__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="knr-newsletter__success">{{ section.settings.success_message | default: 'Merci, votre inscription est confirmée.' }}</p>
+        {%- else -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="knr-newsletter__field">
+            <input
+              type="email"
+              name="contact[email]"
+              value="{{ form.email }}"
+              placeholder="{{ section.settings.placeholder | default: 'E-mail' }}"
+              aria-label="Adresse e-mail"
+              autocomplete="email"
+              required
+            >
+            <button type="submit" class="knr-newsletter__submit">{{ section.settings.button_label | default: 'S’inscrire' }}</button>
+          </div>
+          {%- if form.errors -%}
+            <p class="knr-newsletter__error">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+
+      {%- if section.settings.legal != blank -%}
+        <p class="knr-newsletter__legal">{{ section.settings.legal }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{{ 'knr-newsletter.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "KNR Newsletter",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Position de l'image",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "right", "label": "Droite" }
+      ],
+      "default": "left"
+    },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "L'alliance de la science botanique et du luxe naturel pour une peau visiblement rajeunie en 4 semaines." },
+    { "type": "text", "id": "placeholder", "label": "Placeholder e-mail", "default": "E-mail" },
+    { "type": "text", "id": "button_label", "label": "Libellé du bouton", "default": "S’inscrire" },
+    { "type": "text", "id": "legal", "label": "Mention légale", "default": "Formule brevetée, testée dermatologiquement, 97 % d'ingrédients d'origine naturelle." },
+    { "type": "text", "id": "success_message", "label": "Message de confirmation", "default": "Merci, votre inscription est confirmée." }
+  ],
+  "presets": [{ "name": "KNR Newsletter" }]
+}
+{% endschema %}

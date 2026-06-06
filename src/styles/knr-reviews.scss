@@ -1,0 +1,246 @@
+@use "tokens" as *;
+@use "mixins" as *;
+
+.knr-reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  background: #ffffff;
+  color: $color-text;
+  padding: 96px 40px 120px;
+}
+
+.knr-reviews__title {
+  margin: 0;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.04em;
+  text-align: center;
+}
+
+/* Star rating (knr-rating snippet) — 12px in this section */
+.knr-rating {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+.knr-rating__layer { display: flex; }
+.knr-rating__base { color: $color-line; }
+.knr-rating__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  color: $color-gold;
+}
+.knr-rating .knr-star {
+  flex: 0 0 auto;
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+/* Summary row */
+.knr-reviews__summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  max-width: 720px;
+}
+
+.knr-reviews__score {
+  flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.knr-reviews__score-line {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.knr-reviews__score-val {
+  @include text-body-xs;
+  color: $color-gold;
+}
+.knr-reviews__basis {
+  @include text-body-xs;
+  margin: 0;
+  color: $color-gold;
+}
+
+.knr-reviews__bars {
+  flex: 1 0 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.knr-reviews__bar-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.knr-reviews__bar {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  overflow: hidden;
+  background: $color-bg;
+}
+.knr-reviews__bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #dcd5c3;
+}
+.knr-reviews__bar-n {
+  @include text-body-xs;
+  min-width: 14px;
+  text-align: right;
+  color: $color-gold;
+}
+
+.knr-reviews__actions {
+  flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+/* Buttons */
+.knr-reviews__btn {
+  @include text-cta;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  max-width: 100%;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+.knr-reviews__btn--solid {
+  background: $color-text;
+  border: 1px solid $color-text;
+  color: #ffffff;
+
+  &:hover { opacity: 0.85; }
+}
+.knr-reviews__btn--outline {
+  background: none;
+  border: 1px solid $color-text;
+  color: $color-text;
+
+  &:hover { background: $color-text; color: #ffffff; }
+}
+
+/* Review list */
+.knr-reviews__list-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 720px;
+}
+.knr-reviews__filter {
+  @include text-body-s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $color-faded;
+}
+.knr-reviews__filter-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.knr-reviews__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.knr-reviews__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $color-faded;
+}
+.knr-reviews__item.is-hidden { display: none; }
+
+.knr-reviews__item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.knr-reviews__date {
+  @include text-body-xs;
+  color: $color-text;
+}
+.knr-reviews__reviewer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.knr-reviews__author {
+  @include text-body-s;
+}
+.knr-reviews__badge {
+  font-size: 8px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  padding: 4px;
+  border: 0.5px solid $color-text;
+  border-radius: 2px;
+}
+.knr-reviews__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.knr-reviews__item-title {
+  @include text-body-s;
+  margin: 0;
+}
+.knr-reviews__body {
+  @include text-body-s;
+
+  p { margin: 0; }
+}
+
+.knr-reviews__footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+}
+
+@include mobile {
+  .knr-reviews { padding: 56px 20px 72px; }
+  .knr-reviews__title { font-size: 26px; line-height: 32px; }
+  .knr-reviews__summary {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .knr-reviews__actions {
+    align-items: stretch;
+    width: 100%;
+  }
+  .knr-reviews__btn { width: 100%; }
+}
