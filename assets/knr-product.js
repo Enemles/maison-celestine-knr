@@ -2,7 +2,6 @@
   const root = document.querySelector('[data-product]');
   if (!root) return;
 
-  /* ----- Variant selection: live price / CTA / stock ----- */
   const form = root.querySelector('.knr-product__form');
   const dataEl = root.querySelector('[data-variants]');
   if (form && dataEl) {
@@ -35,7 +34,6 @@
     });
   }
 
-  /* ----- Reassurance text slider ----- */
   const slider = root.querySelector('[data-slider]');
   if (slider) {
     const slides = Array.from(slider.querySelectorAll('[data-slide]'));
@@ -58,47 +56,23 @@
     }
   }
 
-  /* ----- Accordions: smooth height animation, one open at a time ----- */
-  const animate = function (body, from, to, done) {
-    const a = body.animate(
-      [{ height: from + 'px', opacity: from === 0 ? 0 : 1 }, { height: to + 'px', opacity: to === 0 ? 0 : 1 }],
-      { duration: 300, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' }
-    );
-    a.onfinish = done;
-    a.oncancel = done;
-  };
-  const collapse = function (d, body) {
-    d.dataset.animating = '1';
-    animate(body, body.scrollHeight, 0, function () { d.open = false; delete d.dataset.animating; });
-  };
-  const expand = function (d, body) {
-    d.dataset.animating = '1';
-    d.open = true;
-    animate(body, 0, body.scrollHeight, function () { delete d.dataset.animating; });
-  };
-
   root.querySelectorAll('[data-accordions]').forEach(function (group) {
     const items = Array.from(group.querySelectorAll('.knr-product__acc'));
-    items.forEach(function (d) {
-      const summary = d.querySelector('summary');
-      const body = d.querySelector('.knr-product__acc-body');
-      if (!summary || !body) return;
-      summary.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (d.dataset.animating) return;
-        if (d.open) {
-          collapse(d, body);
-        } else {
-          items.forEach(function (o) {
-            if (o !== d && o.open && !o.dataset.animating) collapse(o, o.querySelector('.knr-product__acc-body'));
-          });
-          expand(d, body);
-        }
+    items.forEach(function (item) {
+      const head = item.querySelector('.knr-product__acc-head');
+      if (!head) return;
+      head.addEventListener('click', function () {
+        const open = !item.classList.contains('is-open');
+        items.forEach(function (other) {
+          const active = other === item && open;
+          other.classList.toggle('is-open', active);
+          const h = other.querySelector('.knr-product__acc-head');
+          if (h) h.setAttribute('aria-expanded', active ? 'true' : 'false');
+        });
       });
     });
   });
 
-  /* ----- Gallery lightbox (whole image clickable) ----- */
   const figures = Array.from(root.querySelectorAll('[data-zoom]'));
   if (figures.length) {
     const sources = figures.map(function (f) { return f.dataset.zoom; });
@@ -137,4 +111,31 @@
       else if (e.key === 'ArrowRight') showAt(current + 1);
     });
   }
+
+  root.querySelectorAll('.knr-product__related-grid').forEach(function (track) {
+    let down = false, moved = false, startX = 0, startScroll = 0;
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'touch') return;
+      down = true;
+      moved = false;
+      startX = e.clientX;
+      startScroll = track.scrollLeft;
+      track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 3) moved = true;
+      track.scrollLeft = startScroll - dx;
+    });
+    const release = function (e) {
+      if (!down) return;
+      down = false;
+      try { track.releasePointerCapture(e.pointerId); } catch (err) {}
+    };
+    track.addEventListener('pointerup', release);
+    track.addEventListener('pointercancel', release);
+    track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+  });
 })();

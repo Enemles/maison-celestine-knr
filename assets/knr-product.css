@@ -1,10 +1,8 @@
-@charset "UTF-8";
 .knr-product {
   position: relative;
-  background: #e2decf;
+  background: #fff;
 }
 
-/* Gallery — full-bleed: hero image fills ~80vh, the rest tile on the left */
 .knr-product__gallery {
   display: flex;
   flex-direction: column;
@@ -26,7 +24,7 @@
 }
 
 .knr-product__slide--empty {
-  background: #e2decf;
+  background: #fff;
 }
 
 .knr-product__img {
@@ -52,13 +50,13 @@
 
 .knr-product__zoom {
   position: absolute;
-  right: 12px;
-  bottom: 12px;
+  right: 24px;
+  bottom: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 8px;
+  height: 8px;
   padding: 0;
   color: #fff;
   background: transparent;
@@ -66,12 +64,11 @@
   cursor: pointer;
 }
 .knr-product__zoom svg {
-  width: 40px;
-  height: 40px;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+  width: 8px;
+  height: 8px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
 }
 
-/* Info card — floats over the gallery on the right; the form holds the blocks */
 .knr-product__info {
   background: #fff;
   padding: 24px 20px 40px;
@@ -300,7 +297,6 @@
   cursor: not-allowed;
 }
 
-/* Reassurance text slider */
 .knr-product__slider {
   display: flex;
   flex-direction: column;
@@ -347,7 +343,6 @@
   background: #000000;
 }
 
-/* Accordions (height animated in JS) */
 .knr-product__accordions {
   display: flex;
   flex-direction: column;
@@ -364,51 +359,63 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
+  width: 100%;
   padding: 20px 0;
+  color: inherit;
+  background: none;
+  border: 0;
+  text-align: left;
   cursor: pointer;
-  list-style: none;
-}
-.knr-product__acc-head::-webkit-details-marker {
-  display: none;
-}
-.knr-product__acc-head::marker {
-  content: "";
+  transition: padding-bottom 0.35s ease;
 }
 
-.knr-product__acc[open] .knr-product__acc-head {
+.knr-product__acc.is-open .knr-product__acc-head {
   padding-bottom: 8px;
 }
 
 .knr-product__acc-icon {
+  flex-shrink: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 9px;
+  width: 10px;
   color: #000000;
 }
 .knr-product__acc-icon svg {
   display: block;
-  width: 9px;
+  width: 10px;
   height: auto;
-  transition: transform 0.3s ease;
+  transition: transform 0.35s ease;
 }
 
-.knr-product__acc[open] .knr-product__acc-icon svg {
+.knr-product__acc.is-open .knr-product__acc-icon svg {
   transform: rotate(180deg);
 }
 
+.knr-product__acc-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.knr-product__acc.is-open .knr-product__acc-wrap {
+  grid-template-rows: 1fr;
+}
+
 .knr-product__acc-body {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.knr-product__acc-text {
   font-size: 12px;
   line-height: 20px;
   letter-spacing: -0.02em;
-  overflow: hidden;
   padding-bottom: 20px;
 }
-.knr-product__acc-body p {
+.knr-product__acc-text p {
   margin: 0;
 }
 
-/* Related products */
 .knr-product__related {
   display: flex;
   flex-direction: column;
@@ -442,13 +449,24 @@
 }
 
 .knr-product__related-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+.knr-product__related-grid::-webkit-scrollbar {
+  display: none;
+}
+.knr-product__related-grid:active {
+  cursor: grabbing;
 }
 
 .knr-product__card {
   display: flex;
+  flex: 0 0 159px;
   flex-direction: column;
   gap: 8px;
 }
@@ -457,13 +475,14 @@
   position: relative;
   aspect-ratio: 159/208;
   overflow: hidden;
-  background: #e2decf;
+  background: #fff;
 }
 
 .knr-product__card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  -webkit-user-drag: none;
 }
 
 .knr-product__card-plus {
@@ -505,7 +524,6 @@
   text-align: right;
 }
 
-/* Lightbox */
 .knr-lightbox {
   position: fixed;
   inset: 0;
@@ -558,7 +576,6 @@
   transform: translateY(-50%);
 }
 
-/* Block rhythm — exact maquette margins per block type (reorderable) */
 .knr-product__badges {
   margin-top: 40px;
 }

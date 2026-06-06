@@ -11,7 +11,6 @@
       {%- for media in product.media limit: 1 -%}
         <figure class="knr-product__slide knr-product__slide--hero" data-zoom="{{ media | image_url: width: 2000 }}">
           {{ media | image_url: width: 2400 | image_tag: loading: 'eager', sizes: '100vw', class: 'knr-product__img' }}
-          <button type="button" class="knr-product__zoom" aria-label="Agrandir l'image">{{ 'knr-icon-plus.svg' | inline_asset_content }}</button>
         </figure>
       {%- endfor -%}
       {%- if product.media.size > 1 -%}
@@ -19,7 +18,7 @@
           {%- for media in product.media offset: 1 -%}
             <figure class="knr-product__slide" data-zoom="{{ media | image_url: width: 2000 }}">
               {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 32vw, 100vw', class: 'knr-product__img' }}
-              <button type="button" class="knr-product__zoom" aria-label="Agrandir l'image">{{ 'knr-icon-plus.svg' | inline_asset_content }}</button>
+              <button type="button" class="knr-product__zoom" aria-label="Agrandir l'image"><svg viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 0v8M0 4h8" stroke="currentColor" stroke-width="2"/></svg></button>
             </figure>
           {%- endfor -%}
         </div>
@@ -148,27 +147,39 @@
 
           {%- when 'collapsibles' -%}
             <div class="knr-product__accordions" data-accordions {{ block.shopify_attributes }}>
-              <details class="knr-product__acc" open>
-                <summary class="knr-product__acc-head"><span>Description</span><span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span></summary>
-                <div class="knr-product__acc-body rte">{{ product.description }}</div>
-              </details>
+              <div class="knr-product__acc is-open">
+                <button type="button" class="knr-product__acc-head" aria-expanded="true">
+                  <span>Description</span>
+                  <span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span>
+                </button>
+                <div class="knr-product__acc-wrap"><div class="knr-product__acc-body"><div class="knr-product__acc-text rte">{{ product.description }}</div></div></div>
+              </div>
               {%- if m.benefits_text != blank -%}
-                <details class="knr-product__acc">
-                  <summary class="knr-product__acc-head"><span>Bienfaits</span><span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span></summary>
-                  <div class="knr-product__acc-body rte">{{ m.benefits_text }}</div>
-                </details>
+                <div class="knr-product__acc">
+                  <button type="button" class="knr-product__acc-head" aria-expanded="false">
+                    <span>Bienfaits</span>
+                    <span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span>
+                  </button>
+                  <div class="knr-product__acc-wrap"><div class="knr-product__acc-body"><div class="knr-product__acc-text rte">{{ m.benefits_text }}</div></div></div>
+                </div>
               {%- endif -%}
               {%- if m.ingredients != blank -%}
-                <details class="knr-product__acc">
-                  <summary class="knr-product__acc-head"><span>Ingrédients clés</span><span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span></summary>
-                  <div class="knr-product__acc-body rte">{{ m.ingredients }}</div>
-                </details>
+                <div class="knr-product__acc">
+                  <button type="button" class="knr-product__acc-head" aria-expanded="false">
+                    <span>Ingrédients clés</span>
+                    <span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span>
+                  </button>
+                  <div class="knr-product__acc-wrap"><div class="knr-product__acc-body"><div class="knr-product__acc-text rte">{{ m.ingredients }}</div></div></div>
+                </div>
               {%- endif -%}
               {%- if m.skin_types != blank -%}
-                <details class="knr-product__acc">
-                  <summary class="knr-product__acc-head"><span>Adapté aux peaux</span><span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span></summary>
-                  <div class="knr-product__acc-body rte">{{ m.skin_types }}</div>
-                </details>
+                <div class="knr-product__acc">
+                  <button type="button" class="knr-product__acc-head" aria-expanded="false">
+                    <span>Adapté aux peaux</span>
+                    <span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span>
+                  </button>
+                  <div class="knr-product__acc-wrap"><div class="knr-product__acc-body"><div class="knr-product__acc-text rte">{{ m.skin_types }}</div></div></div>
+                </div>
               {%- endif -%}
             </div>
 
