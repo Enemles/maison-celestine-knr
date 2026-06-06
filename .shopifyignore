@@ -12,6 +12,10 @@
 # Ignore templates and sections with a regular expression:
 #   /(templates|sections)/.*\.json/
 
+# --- Fichiers temporaires (écritures atomiques éditeur/CLI) — jamais synchroniser ---
+*.tmp.*
+/.*\.tmp\..*/
+
 # --- Projet : fichiers hors-thème, à ne pas uploader au store ---
 _design/
 src/

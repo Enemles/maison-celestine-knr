@@ -1,0 +1,101 @@
+.knr-htu {
+  background: #f9f8f5;
+  color: #000000;
+  padding: 96px 40px;
+}
+
+.knr-htu__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.knr-htu__title {
+  margin: 0 0 48px;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.04em;
+}
+
+.knr-htu__intro {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  max-width: 560px;
+  margin: -32px 0 48px;
+  color: #6b6b6b;
+}
+.knr-htu__intro p {
+  margin: 0;
+}
+
+.knr-htu__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+
+.knr-htu__step {
+  display: flex;
+  flex-direction: column;
+}
+
+.knr-htu__media {
+  aspect-ratio: 1/1;
+  margin-bottom: 24px;
+  overflow: hidden;
+  background: #e6e2db;
+}
+
+.knr-htu__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.knr-htu__num {
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  color: #b5a282;
+  letter-spacing: 0.04em;
+}
+
+.knr-htu__step-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+}
+
+.knr-htu__step-body {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  color: #6b6b6b;
+}
+.knr-htu__step-body p {
+  margin: 0;
+}
+
+@media (max-width: 749px) {
+  .knr-htu {
+    padding: 56px 20px;
+  }
+  .knr-htu__title {
+    font-size: 26px;
+    line-height: 32px;
+    margin-bottom: 32px;
+  }
+  .knr-htu__intro {
+    margin: -16px 0 32px;
+  }
+  .knr-htu__steps {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

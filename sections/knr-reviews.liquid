@@ -1,0 +1,241 @@
+{%- liquid
+  assign meta_reviews = product.metafields.custom.reviews.value
+  assign use_meta = false
+  if meta_reviews != blank
+    assign use_meta = true
+  endif
+
+  if use_meta
+    assign count = meta_reviews | size
+  else
+    assign count = section.blocks.size
+  endif
+
+  assign total = 0
+  assign s5 = 0
+  assign s4 = 0
+  assign s3 = 0
+  assign s2 = 0
+  assign s1 = 0
+  if use_meta
+    for item in meta_reviews
+      assign r = item.rating | plus: 0
+      assign total = total | plus: r
+      case r
+        when 5
+          assign s5 = s5 | plus: 1
+        when 4
+          assign s4 = s4 | plus: 1
+        when 3
+          assign s3 = s3 | plus: 1
+        when 2
+          assign s2 = s2 | plus: 1
+        else
+          assign s1 = s1 | plus: 1
+      endcase
+    endfor
+  else
+    for block in section.blocks
+      assign r = block.settings.rating
+      assign total = total | plus: r
+      case r
+        when 5
+          assign s5 = s5 | plus: 1
+        when 4
+          assign s4 = s4 | plus: 1
+        when 3
+          assign s3 = s3 | plus: 1
+        when 2
+          assign s2 = s2 | plus: 1
+        else
+          assign s1 = s1 | plus: 1
+      endcase
+    endfor
+  endif
+
+  assign avg = 0
+  if count > 0
+    assign avg = total | times: 1.0 | divided_by: count
+  endif
+  assign review_count = count
+  assign mf_rating = product.metafields.custom.rating.value
+  assign mf_count = product.metafields.custom.rating_count.value
+  if mf_rating != blank
+    assign avg = mf_rating
+  endif
+  if mf_count != blank
+    assign review_count = mf_count
+  endif
+
+  assign maxc = s5
+  if s4 > maxc
+    assign maxc = s4
+  endif
+  if s3 > maxc
+    assign maxc = s3
+  endif
+  if s2 > maxc
+    assign maxc = s2
+  endif
+  if s1 > maxc
+    assign maxc = s1
+  endif
+  if maxc == 0
+    assign maxc = 1
+  endif
+
+  assign visible = section.settings.visible_count
+-%}
+
+<section class="knr-reviews" data-reviews>
+  {%- if section.settings.heading != blank -%}
+    <h2 class="knr-reviews__title">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+
+  <div class="knr-reviews__summary">
+    <div class="knr-reviews__score">
+      <div class="knr-reviews__score-line">
+        {% render 'knr-rating', rating: avg, label: avg %}
+        <span class="knr-reviews__score-val">{{ avg | round: 1 }} sur 5</span>
+      </div>
+      <p class="knr-reviews__basis">Basé sur {{ review_count }} avis</p>
+    </div>
+
+    <ul class="knr-reviews__bars">
+      {%- assign rows = '5,4,3,2,1' | split: ',' -%}
+      {%- for s in rows -%}
+        {%- liquid
+          case s
+            when '5'
+              assign n = s5
+            when '4'
+              assign n = s4
+            when '3'
+              assign n = s3
+            when '2'
+              assign n = s2
+            else
+              assign n = s1
+          endcase
+          assign w = n | times: 100.0 | divided_by: maxc
+        -%}
+        <li class="knr-reviews__bar-row">
+          {% render 'knr-rating', rating: s, label: s %}
+          <span class="knr-reviews__bar"><span class="knr-reviews__bar-fill" style="width: {{ w }}%;"></span></span>
+          <span class="knr-reviews__bar-n">{{ n }}</span>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- if section.settings.write_label != blank or section.settings.ask_label != blank -%}
+      <div class="knr-reviews__actions">
+        {%- if section.settings.write_label != blank -%}
+          <a class="knr-reviews__btn knr-reviews__btn--solid" href="{{ section.settings.write_url | default: '#' }}">{{ section.settings.write_label }}</a>
+        {%- endif -%}
+        {%- if section.settings.ask_label != blank -%}
+          <a class="knr-reviews__btn knr-reviews__btn--outline" href="{{ section.settings.ask_url | default: '#' }}">{{ section.settings.ask_label }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="knr-reviews__list-wrap">
+    {%- if section.settings.show_filter -%}
+      <div class="knr-reviews__filter">
+        <svg class="knr-reviews__filter-icon" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false"><path d="M2 4.5h14M4 9h10M6.5 13.5h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <span>{{ section.settings.filter_label | default: 'Filtrer' }}</span>
+      </div>
+    {%- endif -%}
+
+    <ul class="knr-reviews__list" data-reviews-list>
+      {%- if use_meta -%}
+        {%- for item in meta_reviews -%}
+          <li class="knr-reviews__item{% if forloop.index > visible %} is-hidden{% endif %}">
+            <div class="knr-reviews__item-head">
+              {% render 'knr-rating', rating: item.rating, label: item.rating %}
+              {%- if item.date != blank -%}<span class="knr-reviews__date">{{ item.date }}</span>{%- endif -%}
+            </div>
+            <div class="knr-reviews__reviewer">
+              <span class="knr-reviews__author">{{ item.author }}</span>
+              {%- if item.verified -%}<span class="knr-reviews__badge">Vérifié</span>{%- endif -%}
+            </div>
+            <div class="knr-reviews__content">
+              {%- if item.title != blank -%}<p class="knr-reviews__item-title">{{ item.title }}</p>{%- endif -%}
+              <div class="knr-reviews__body">{{ item.body }}</div>
+            </div>
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          <li class="knr-reviews__item{% if forloop.index > visible %} is-hidden{% endif %}" {{ block.shopify_attributes }}>
+            <div class="knr-reviews__item-head">
+              {% render 'knr-rating', rating: block.settings.rating, label: block.settings.rating %}
+              {%- if block.settings.date != blank -%}<span class="knr-reviews__date">{{ block.settings.date }}</span>{%- endif -%}
+            </div>
+            <div class="knr-reviews__reviewer">
+              <span class="knr-reviews__author">{{ block.settings.author | escape }}</span>
+              {%- if block.settings.verified -%}<span class="knr-reviews__badge">Vérifié</span>{%- endif -%}
+            </div>
+            <div class="knr-reviews__content">
+              {%- if block.settings.title != blank -%}<p class="knr-reviews__item-title">{{ block.settings.title | escape }}</p>{%- endif -%}
+              <div class="knr-reviews__body">{{ block.settings.body }}</div>
+            </div>
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+    </ul>
+
+    {%- if count > visible -%}
+      <div class="knr-reviews__footer">
+        <button type="button" class="knr-reviews__more knr-reviews__btn knr-reviews__btn--outline" data-reviews-more>{{ section.settings.more_label | default: 'Charger plus' }}</button>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{{ 'knr-reviews.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'knr-reviews.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "KNR Avis",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Avis clients" },
+    { "type": "checkbox", "id": "show_filter", "label": "Afficher « Filtrer »", "default": true },
+    { "type": "text", "id": "filter_label", "label": "Libellé filtre", "default": "Filtrer" },
+    { "type": "range", "id": "visible_count", "label": "Avis affichés avant « charger plus »", "min": 1, "max": 10, "step": 1, "default": 3 },
+    { "type": "text", "id": "more_label", "label": "Bouton charger plus", "default": "Charger plus" },
+    { "type": "header", "content": "Actions" },
+    { "type": "text", "id": "write_label", "label": "Bouton 1 — texte", "default": "Écrire un avis" },
+    { "type": "url", "id": "write_url", "label": "Bouton 1 — lien" },
+    { "type": "text", "id": "ask_label", "label": "Bouton 2 — texte", "default": "Poser une question" },
+    { "type": "url", "id": "ask_url", "label": "Bouton 2 — lien" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Avis",
+      "settings": [
+        { "type": "text", "id": "author", "label": "Auteur" },
+        { "type": "text", "id": "date", "label": "Date" },
+        { "type": "checkbox", "id": "verified", "label": "Vérifié", "default": true },
+        { "type": "range", "id": "rating", "label": "Note", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Titre de l'avis" },
+        { "type": "richtext", "id": "body", "label": "Avis" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KNR Avis",
+      "blocks": [
+        { "type": "review", "settings": { "author": "Camille R.", "date": "12/05/26", "rating": 5, "title": "Une peau transformée", "body": "<p>Après trois semaines, mon teint est visiblement plus lumineux et ma peau plus souple. Je ne peux plus m'en passer.</p>" } },
+        { "type": "review", "settings": { "author": "Inès M.", "date": "03/05/26", "rating": 5, "title": "Texture sublime", "body": "<p>La texture pénètre instantanément, sans effet collant. Le parfum est délicat et l'effet bonne mine immédiat.</p>" } },
+        { "type": "review", "settings": { "author": "Sophie L.", "date": "27/04/26", "rating": 4, "title": "Très satisfaite", "body": "<p>Un sérum efficace sur les ridules. J'aurais aimé un flacon un peu plus grand, mais le résultat est là.</p>" } },
+        { "type": "review", "settings": { "author": "Élodie V.", "date": "15/04/26", "rating": 5, "title": "Grain de peau affiné", "body": "<p>Mes pores sont moins visibles et ma peau plus nette. Un rituel du soir devenu indispensable.</p>" } },
+        { "type": "review", "settings": { "author": "Marine D.", "date": "02/04/26", "rating": 4, "title": "Belle découverte", "body": "<p>Application agréable et résultats progressifs. Livraison rapide et emballage très soigné.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
