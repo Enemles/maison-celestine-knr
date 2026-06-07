@@ -18,18 +18,22 @@
     <ol class="knr-htu__steps" data-htu-track>
       {%- if use_meta -%}
         {%- for step in steps -%}
+          {%- liquid
+            assign s_title = step.titre | default: step.title
+            assign s_body = step.texte | default: step.body
+          -%}
           <li class="knr-htu__step">
             <div class="knr-htu__media">
               {%- if step.image != blank -%}
-                {{ step.image | image_url: width: 896 | image_tag: class: 'knr-htu__img', loading: 'lazy', widths: '448, 896', sizes: '(max-width: 749px) 100vw, 33vw', alt: step.title }}
+                {{ step.image | image_url: width: 896 | image_tag: class: 'knr-htu__img', loading: 'lazy', widths: '448, 896', sizes: '(max-width: 749px) 100vw, 33vw', alt: s_title }}
               {%- else -%}
                 {{ 'lifestyle-1' | placeholder_svg_tag: 'knr-htu__img knr-htu__img--ph' }}
               {%- endif -%}
             </div>
             <div class="knr-htu__details">
               <span class="knr-htu__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
-              <h3 class="knr-htu__step-title">{{ step.title }}</h3>
-              <div class="knr-htu__step-body">{{ step.body }}</div>
+              <h3 class="knr-htu__step-title">{{ s_title }}</h3>
+              <div class="knr-htu__step-body">{{ s_body }}</div>
               {%- if section.settings.more_label != blank -%}
                 <a class="knr-htu__more" href="{{ step.link | default: product.url }}">{{ section.settings.more_label }}</a>
               {%- endif -%}
