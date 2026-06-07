@@ -25,32 +25,34 @@
         <h2 class="knr-newsletter__title">{{ section.settings.heading }}</h2>
       {%- endif -%}
 
-      {%- form 'customer', class: 'knr-newsletter__form' -%}
-        {%- if form.posted_successfully? -%}
-          <p class="knr-newsletter__success">{{ section.settings.success_message | default: 'Merci, votre inscription est confirmée.' }}</p>
-        {%- else -%}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <div class="knr-newsletter__field">
-            <input
-              type="email"
-              name="contact[email]"
-              value="{{ form.email }}"
-              placeholder="{{ section.settings.placeholder | default: 'E-mail' }}"
-              aria-label="Adresse e-mail"
-              autocomplete="email"
-              required
-            >
-            <button type="submit" class="knr-newsletter__submit">{{ section.settings.button_label | default: 'S’inscrire' }}</button>
-          </div>
-          {%- if form.errors -%}
-            <p class="knr-newsletter__error">{{ form.errors | default_errors }}</p>
+      <div class="knr-newsletter__info">
+        {%- form 'customer', class: 'knr-newsletter__form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="knr-newsletter__success">{{ section.settings.success_message | default: 'Merci, votre inscription est confirmée.' }}</p>
+          {%- else -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="knr-newsletter__field">
+              <input
+                type="email"
+                name="contact[email]"
+                value="{{ form.email }}"
+                placeholder="{{ section.settings.placeholder | default: 'E-mail' }}"
+                aria-label="Adresse e-mail"
+                autocomplete="email"
+                required
+              >
+              <button type="submit" class="knr-newsletter__submit">{{ section.settings.button_label | default: 'S’inscrire' }}</button>
+            </div>
+            {%- if form.errors -%}
+              <p class="knr-newsletter__error">{{ form.errors | default_errors }}</p>
+            {%- endif -%}
           {%- endif -%}
-        {%- endif -%}
-      {%- endform -%}
+        {%- endform -%}
 
-      {%- if section.settings.legal != blank -%}
-        <p class="knr-newsletter__legal">{{ section.settings.legal }}</p>
-      {%- endif -%}
+        {%- if section.settings.legal != blank -%}
+          <p class="knr-newsletter__legal">{{ section.settings.legal }}</p>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </section>
