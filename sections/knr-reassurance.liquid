@@ -1,0 +1,53 @@
+<section class="knr-reassurance" data-reassurance>
+  <div class="knr-reassurance__inner" data-reassurance-track>
+    {%- for block in section.blocks -%}
+      <div class="knr-reassurance__col" {{ block.shopify_attributes }}>
+        {%- if block.settings.title != blank -%}
+          <h3 class="knr-reassurance__title">{{ block.settings.title }}</h3>
+        {%- endif -%}
+        {%- if block.settings.text != blank -%}
+          <p class="knr-reassurance__text">{{ block.settings.text | newline_to_br }}</p>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.blocks.size > 1 -%}
+    <div class="knr-reassurance__dots" data-reassurance-dots aria-hidden="true">
+      {%- for block in section.blocks -%}
+        <span class="knr-reassurance__dot{% if forloop.first %} is-active{% endif %}"></span>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{{ 'knr-reassurance.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'knr-reassurance.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "KNR Réassurance",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Colonne",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre" },
+        { "type": "textarea", "id": "text", "label": "Texte" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KNR Réassurance",
+      "blocks": [
+        { "type": "column", "settings": { "title": "Livraison offerte", "text": "Livraison offerte dès 60 € d'achat en France métropolitaine." } },
+        { "type": "column", "settings": { "title": "Retours gratuits", "text": "Retours acceptés jusqu'à 30 jours après réception." } },
+        { "type": "column", "settings": { "title": "Paiement sécurisé", "text": "Paiement 100 % sécurisé par carte bancaire, PayPal ou virement." } },
+        { "type": "column", "settings": { "title": "Service client", "text": "Du lundi au vendredi de 9h à 18h par email et téléphone." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,76 @@
+@use "tokens" as *;
+@use "mixins" as *;
+
+.knr-reassurance {
+  background: #dcd5c3;
+  color: $color-text;
+  padding: 80px 40px;
+}
+
+.knr-reassurance__inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 80px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.knr-reassurance__col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+
+.knr-reassurance__title {
+  margin: 0;
+  font-size: 14px;
+  line-height: 14px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.knr-reassurance__text {
+  margin: 0;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+}
+
+// Pagination en tirets : propre au carrousel mobile, masquée sur desktop
+.knr-reassurance__dots {
+  display: none;
+}
+.knr-reassurance__dot {
+  width: 16px;
+  height: 1px;
+  background: $color-gold;
+  transition: background-color 0.3s ease;
+}
+.knr-reassurance__dot.is-active { background: $color-text; }
+
+@include mobile {
+  // carrousel 1 colonne par vue (padding 80px 40px conservé du desktop)
+  .knr-reassurance__inner {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar { display: none; }
+  }
+  .knr-reassurance__col {
+    flex: 0 0 100%;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
+  }
+  .knr-reassurance__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+}
