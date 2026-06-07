@@ -11,6 +11,7 @@
       {%- for benefit in m.benefits.value -%}<li class="knr-product__badge">{{ benefit }}</li>{%- endfor -%}
     </ul>
   {%- endif -%}
+  <div class="knr-product__gallery-wrap">
   <div class="knr-product__gallery">
     {%- if product.media.size > 0 -%}
       {%- for media in product.media limit: 1 -%}
@@ -37,6 +38,11 @@
       <figure class="knr-product__slide knr-product__slide--hero knr-product__slide--empty"></figure>
     {%- endif -%}
   </div>
+  {%- if product.media.size > 1 -%}
+    <button type="button" class="knr-product__gallery-nav knr-product__gallery-nav--prev" data-gallery-prev aria-label="Image précédente">{% render 'knr-chevron' %}</button>
+    <button type="button" class="knr-product__gallery-nav knr-product__gallery-nav--next" data-gallery-next aria-label="Image suivante">{% render 'knr-chevron' %}</button>
+  {%- endif -%}
+  </div>
 
   <div class="knr-product__progress" aria-hidden="true"><span class="knr-product__progress-fill"></span></div>
 
@@ -48,7 +54,7 @@
           {%- when 'breadcrumb' -%}
             <p class="knr-product__crumb" {{ block.shopify_attributes }}>
               {{- product.type | default: 'Soins anti-âge' -}}
-              {%- if crumb_collection %} / {{ crumb_collection.title }}{% endif -%}
+              {%- if crumb_collection %} / <a class="knr-product__crumb-link" href="{{ crumb_collection.url }}">{{ crumb_collection.title }}</a>{% endif -%}
             </p>
 
           {%- when 'badges' -%}
@@ -61,21 +67,24 @@
             {%- endif -%}
 
           {%- when 'title' -%}
-            <h1 class="knr-product__title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
-            <div class="knr-product__rating">
-              <span class="knr-product__stars" aria-hidden="true">
-                {%- for i in (1..5) -%}{{ 'knr-icon-star.svg' | inline_asset_content }}{%- endfor -%}
-              </span>
-              <span class="knr-product__rating-score">{{ m.rating.value | default: 4.7 }}</span>
-              <span class="knr-product__rating-dot" aria-hidden="true"></span>
-              <span class="knr-product__rating-count">{{ m.rating_count.value | default: 200 }} avis</span>
+            <div class="knr-product__head" {{ block.shopify_attributes }}>
+              <h1 class="knr-product__title">{{ product.title }}</h1>
+              <div class="knr-product__rating">
+                <span class="knr-product__rating-row">
+                  <span class="knr-product__stars" aria-hidden="true">
+                    {%- for i in (1..5) -%}{{ 'knr-icon-star.svg' | inline_asset_content }}{%- endfor -%}
+                  </span>
+                  <span class="knr-product__rating-score">{{ m.rating.value | default: 4.7 }}</span>
+                </span>
+                <span class="knr-product__rating-count">{{ m.rating_count.value | default: 200 }} {{ block.settings.reviews_label | default: 'avis' }}</span>
+              </div>
             </div>
 
           {%- when 'indices' -%}
             <p class="knr-product__indices" {{ block.shopify_attributes }}>
-              <span><strong>Yuka</strong> {{ m.yuka | default: '100/100' }}</span>
+              <span><strong>{{ block.settings.index_1_label | default: 'Yuka' }}</strong> {{ m.yuka | default: '100/100' }}</span>
               <span class="knr-product__indices-dot" aria-hidden="true"></span>
-              <span><strong>INCI Beauty</strong> {{ m.inci | default: '20/20' }}</span>
+              <span><strong>{{ block.settings.index_2_label | default: 'INCI Beauty' }}</strong> {{ m.inci | default: '20/20' }}</span>
             </p>
 
           {%- when 'intro' -%}

@@ -138,6 +138,23 @@
     track.addEventListener('dragstart', function (e) { e.preventDefault(); });
     track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
   });
+
+  root.querySelectorAll('.knr-product__gallery-wrap').forEach(function (wrap) {
+    const gallery = wrap.querySelector('.knr-product__gallery');
+    const prev = wrap.querySelector('[data-gallery-prev]');
+    const next = wrap.querySelector('[data-gallery-next]');
+    if (!gallery || !prev || !next) return;
+    const update = function () {
+      const max = gallery.scrollWidth - gallery.clientWidth;
+      prev.disabled = gallery.scrollLeft <= 1;
+      next.disabled = gallery.scrollLeft >= max - 1;
+    };
+    prev.addEventListener('click', function () { gallery.scrollBy({ left: -gallery.clientWidth, behavior: 'smooth' }); });
+    next.addEventListener('click', function () { gallery.scrollBy({ left: gallery.clientWidth, behavior: 'smooth' }); });
+    gallery.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
 })();
 
 /* ----- Mobile gallery progress bar ----- */
