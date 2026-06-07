@@ -11,7 +11,13 @@
   "sections": {
     "main": {
       "type": "knr-landing",
-      "settings": {}
+      "settings": {
+        "product": "serum-regenerant-botanique",
+        "eyebrow": "Maison Célestine",
+        "heading": "",
+        "subheading": "Le soin régénérant qui sublime votre peau en 4 semaines.",
+        "cta_label": "Découvrir le produit"
+      }
     }
   },
   "order": [
