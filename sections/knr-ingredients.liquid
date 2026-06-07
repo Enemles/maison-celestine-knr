@@ -2,6 +2,7 @@
   assign callout_product = product.metafields.custom.ingredient_product.value | default: section.settings.product | default: product
   assign cp_variant = callout_product.selected_or_first_available_variant
   assign ing_image = product.metafields.custom.ingredient_image.value | default: section.settings.image
+  assign ing_image_mobile = product.metafields.custom.ingredient_image_mobile.value | default: section.settings.image_mobile
   assign ing_label = product.metafields.custom.ingredient_label.value | default: section.settings.label
   assign ing_manifesto = product.metafields.custom.ingredient_manifesto.value | default: section.settings.manifesto
   assign ing_attribution = product.metafields.custom.ingredient_attribution.value | default: section.settings.attribution
@@ -10,7 +11,12 @@
 <section class="knr-ingredients" data-ingredients>
   <div class="knr-ingredients__media">
     {%- if ing_image != blank -%}
-      {{ ing_image | image_url: width: 2880 | image_tag: class: 'knr-ingredients__img', loading: 'lazy', widths: '1440, 2880', sizes: '100vw', alt: '' }}
+      <picture>
+        {%- if ing_image_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ ing_image_mobile | image_url: width: 390 }} 390w, {{ ing_image_mobile | image_url: width: 780 }} 780w, {{ ing_image_mobile | image_url: width: 1170 }} 1170w" sizes="100vw">
+        {%- endif -%}
+        {{ ing_image | image_url: width: 2880 | image_tag: class: 'knr-ingredients__img', loading: 'lazy', widths: '1440, 2880', sizes: '100vw', alt: '' }}
+      </picture>
     {%- endif -%}
     <div class="knr-ingredients__gradient" aria-hidden="true"></div>
 
@@ -83,6 +89,7 @@
   "name": "KNR Ingrédients",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Image de fond (sombre de préférence)" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Image de fond — mobile (optionnel)" },
     { "type": "text", "id": "label", "label": "Petit titre", "default": "Notre engagement pour une beauté régénérée" },
     { "type": "richtext", "id": "manifesto", "label": "Manifeste", "default": "<p>Fusionnant l'huile de rosier muscat, le rétinol végétal et l'extrait de cactus, notre sérum pénètre en profondeur pour stimuler le renouvellement cellulaire, atténuer les rides et redonner à la peau son éclat et sa fermeté naturels.</p>" },
     { "type": "text", "id": "attribution", "label": "Signature", "default": "Sophie M." },
