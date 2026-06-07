@@ -310,6 +310,7 @@
         "n1": {
           "type": "article",
           "settings": {
+            "image": "shopify://shop_images/Product_Image_Container_a15c9b96-caed-413b-a9f5-b3b80d2a0c34.png",
             "label": "L'origine",
             "title": "Fondée en 2012 dans les Alpes",
             "body": "Maison Célestine est née de la passion d'une botaniste pour les plantes alpines et leurs propriétés régénérantes exceptionnelles.",
@@ -319,6 +320,7 @@
         "n2": {
           "type": "article",
           "settings": {
+            "image": "shopify://shop_images/Product_Image_Container-1_99bdc4c9-7136-4d87-b06b-55dace1db329.png",
             "label": "La formule",
             "title": "12 ingrédients actifs sélectionnés",
             "body": "Chaque ingrédient est sourcé chez des producteurs engagés : huile de rose musquée, rétinol végétal, extrait de cactus Cactacaea.",
@@ -328,6 +330,7 @@
         "n3": {
           "type": "article",
           "settings": {
+            "image": "shopify://shop_images/Product_Image_Container-1.png",
             "label": "L'expertise",
             "title": "15 ans de recherche en laboratoire",
             "body": "Notre laboratoire indépendant teste chaque formule sur des panels de peaux diverses, garantissant efficacité et tolérance.",
@@ -337,6 +340,7 @@
         "n4": {
           "type": "article",
           "settings": {
+            "image": "shopify://shop_images/Product_Image.png",
             "label": "L'engagement",
             "title": "97 % d'origine naturelle",
             "body": "Emballages recyclables, formules biodégradables, compensation carbone intégrale. Beauté responsable, du champ au flacon.",
