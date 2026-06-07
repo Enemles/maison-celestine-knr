@@ -1,93 +1,429 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "knr-product",
       "blocks": {
-        "breadcrumb": { "type": "breadcrumb" },
-        "badges": { "type": "badges" },
-        "title": { "type": "title" },
-        "indices": { "type": "indices" },
-        "intro": { "type": "intro" },
-        "variant_picker": { "type": "variant_picker" },
-        "price": { "type": "price" },
-        "buy_buttons": { "type": "buy_buttons" },
-        "reassurance": { "type": "reassurance", "settings": { "show_stock": true, "ship_days": 2, "message_1": "Paiement 100% sécurisé", "message_2": "Livraison offerte dès 60 €", "message_3": "Retours gratuits sous 30 jours" } },
-        "collapsibles": { "type": "collapsibles" },
-        "complementary": { "type": "complementary", "settings": { "title": "Complétez votre rituel" } }
+        "breadcrumb": {
+          "type": "breadcrumb",
+          "settings": {}
+        },
+        "badges": {
+          "type": "badges",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "indices": {
+          "type": "indices",
+          "settings": {}
+        },
+        "intro": {
+          "type": "intro",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "reassurance": {
+          "type": "reassurance",
+          "settings": {
+            "show_stock": true,
+            "ship_days": 2,
+            "message_1": "Paiement 100% sécurisé",
+            "message_2": "Livraison offerte dès 60 €",
+            "message_3": "Retours gratuits sous 30 jours"
+          }
+        },
+        "collapsibles": {
+          "type": "collapsibles",
+          "settings": {}
+        },
+        "complementary": {
+          "type": "complementary",
+          "settings": {
+            "title": "Complétez votre rituel",
+            "collection": ""
+          }
+        }
       },
-      "block_order": ["breadcrumb", "badges", "title", "indices", "intro", "variant_picker", "price", "buy_buttons", "reassurance", "collapsibles", "complementary"]
+      "block_order": [
+        "breadcrumb",
+        "badges",
+        "title",
+        "indices",
+        "intro",
+        "variant_picker",
+        "price",
+        "buy_buttons",
+        "reassurance",
+        "collapsibles",
+        "complementary"
+      ],
+      "settings": {}
     },
-    "ingredients": { "type": "knr-ingredients" },
+    "ingredients": {
+      "type": "knr-ingredients",
+      "settings": {
+        "image": "shopify://shop_images/Product_Image.png",
+        "label": "Notre engagement pour une beauté régénérée",
+        "manifesto": "<p>Fusionnant l'huile de rosier muscat, le rétinol végétal et l'extrait de cactus, notre sérum pénètre en profondeur pour stimuler le renouvellement cellulaire, atténuer les rides et redonner à la peau son éclat et sa fermeté naturels.</p>",
+        "attribution": "Sophie M.",
+        "product": "",
+        "button_label": "Ajouter au panier"
+      }
+    },
     "how-to-use": {
       "type": "knr-how-to-use",
       "blocks": {
-        "s1": { "type": "step", "settings": { "title": "Nettoyez", "body": "<p>Sur une peau propre et sèche, tamponnez délicatement pour retirer l'excédent d'eau.</p>" } },
-        "s2": { "type": "step", "settings": { "title": "Appliquez", "body": "<p>Déposez 3 à 4 gouttes de sérum et massez du bout des doigts, du centre vers l'extérieur.</p>" } },
-        "s3": { "type": "step", "settings": { "title": "Hydratez", "body": "<p>Scellez le soin avec votre crème hydratante habituelle, matin et soir.</p>" } }
+        "s1": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Product_Image_Container_f77231c6-a230-4ac9-a1c6-053750218a5b.png",
+            "title": "Nettoyez",
+            "body": "<p>Sur une peau propre et sèche, tamponnez délicatement pour retirer l'excédent d'eau.</p>",
+            "link": ""
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Product_Image_Container-1.png",
+            "title": "Appliquez",
+            "body": "<p>Déposez 3 à 4 gouttes de sérum et massez du bout des doigts, du centre vers l'extérieur.</p>",
+            "link": ""
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Product_Image_Container-2.png",
+            "title": "Hydratez",
+            "body": "<p>Scellez le soin avec votre crème hydratante habituelle, matin et soir.</p>",
+            "link": ""
+          }
+        }
       },
-      "block_order": ["s1", "s2", "s3"]
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "heading": "Comment l'utiliser",
+        "subheading": "",
+        "more_label": "Lire plus"
+      }
     },
     "before-after": {
       "type": "knr-before-after",
       "blocks": {
-        "t1": { "type": "testimonial", "settings": { "name": "Clara T.", "rating": 5, "text": "J'utilise ce sérum depuis trois mois et la différence est saisissante. Mes rides d'expression se sont considérablement atténuées et mon teint a retrouvé une luminosité que je n'avais plus depuis des années." } },
-        "t2": { "type": "testimonial", "settings": { "name": "Sophie M.", "rating": 5, "text": "Les taches pigmentaires se sont estompées dès la troisième semaine. Une texture sensorielle qui pénètre instantanément, sans effet collant. Je recommande les yeux fermés." } },
-        "t3": { "type": "testimonial", "settings": { "name": "Inès D.", "rating": 4, "text": "Ma peau est visiblement plus ferme et lumineuse après un mois. Un rituel du soir devenu indispensable, avec des résultats au rendez-vous." } }
+        "t1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Clara T.",
+            "rating": 5,
+            "text": "J'utilise ce sérum depuis trois mois et la différence est saisissante. Mes rides d'expression se sont considérablement atténuées et mon teint a retrouvé une luminosité que je n'avais plus depuis des années."
+          }
+        },
+        "t2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Sophie M.",
+            "rating": 5,
+            "text": "Les taches pigmentaires se sont estompées dès la troisième semaine. Une texture sensorielle qui pénètre instantanément, sans effet collant. Je recommande les yeux fermés."
+          }
+        },
+        "t3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Inès D.",
+            "rating": 4,
+            "text": "Ma peau est visiblement plus ferme et lumineuse après un mois. Un rituel du soir devenu indispensable, avec des résultats au rendez-vous."
+          }
+        }
       },
-      "block_order": ["t1", "t2", "t3"]
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "heading": "Ce que disent nos clientes",
+        "description": "<p>Des transformations visibles dès 4 semaines. Nos clientes témoignent d'une peau visiblement régénérée, plus ferme et lumineuse.</p>",
+        "before_image": "shopify://shop_images/before.jpg",
+        "after_image": "shopify://shop_images/after.jpg",
+        "before_label": "Avant",
+        "after_label": "Après"
+      }
     },
     "faq": {
       "type": "knr-faq",
       "blocks": {
-        "q1": { "type": "qa", "settings": { "question": "Comment utiliser ce sérum ?", "answer": "<p>Appliquez 3 à 4 gouttes matin et soir sur une peau propre et sèche, avant votre soin hydratant.</p>" } },
-        "q2": { "type": "qa", "settings": { "question": "Convient-il aux peaux sensibles ?", "answer": "<p>Oui. Sa formule sans parfum ni alcool a été testée sous contrôle dermatologique sur peaux sensibles.</p>" } },
-        "q3": { "type": "qa", "settings": { "question": "Quels sont les ingrédients clés ?", "answer": "<p>Un complexe régénérant associant acide hyaluronique, niacinamide et huiles botaniques précieuses.</p>" } },
-        "q4": { "type": "qa", "settings": { "question": "Au bout de combien de temps voit-on des résultats ?", "answer": "<p>Une peau visiblement plus lumineuse dès 7 jours ; les résultats sur le grain et la fermeté s'installent en 4 à 6 semaines.</p>" } },
-        "q5": { "type": "qa", "settings": { "question": "Le produit est-il testé sur les animaux ?", "answer": "<p>Jamais. Maison Célestine est une marque cruelty-free, certifiée et fabriquée en France.</p>" } }
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "Comment utiliser ce sérum ?",
+            "answer": "<p>Appliquez 3 à 4 gouttes matin et soir sur une peau propre et sèche, avant votre soin hydratant.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "Convient-il aux peaux sensibles ?",
+            "answer": "<p>Oui. Sa formule sans parfum ni alcool a été testée sous contrôle dermatologique sur peaux sensibles.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "Quels sont les ingrédients clés ?",
+            "answer": "<p>Un complexe régénérant associant acide hyaluronique, niacinamide et huiles botaniques précieuses.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "Au bout de combien de temps voit-on des résultats ?",
+            "answer": "<p>Une peau visiblement plus lumineuse dès 7 jours ; les résultats sur le grain et la fermeté s'installent en 4 à 6 semaines.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "question": "Le produit est-il testé sur les animaux ?",
+            "answer": "<p>Jamais. Maison Célestine est une marque cruelty-free, certifiée et fabriquée en France.</p>"
+          }
+        }
       },
-      "block_order": ["q1", "q2", "q3", "q4", "q5"]
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "heading": "Questions fréquentes"
+      }
     },
     "reviews": {
       "type": "knr-reviews",
-      "settings": { "heading": "Avis clients", "visible_count": 3 },
       "blocks": {
-        "r1": { "type": "review", "settings": { "author": "Camille R.", "date": "12/05/26", "rating": 5, "title": "Une peau transformée", "body": "<p>Après trois semaines, mon teint est visiblement plus lumineux et ma peau plus souple. Je ne peux plus m'en passer.</p>" } },
-        "r2": { "type": "review", "settings": { "author": "Inès M.", "date": "03/05/26", "rating": 5, "title": "Texture sublime", "body": "<p>La texture pénètre instantanément, sans effet collant. Le parfum est délicat et l'effet bonne mine immédiat.</p>" } },
-        "r3": { "type": "review", "settings": { "author": "Sophie L.", "date": "27/04/26", "rating": 4, "title": "Très satisfaite", "body": "<p>Un sérum efficace sur les ridules. J'aurais aimé un flacon un peu plus grand, mais le résultat est là.</p>" } },
-        "r4": { "type": "review", "settings": { "author": "Élodie V.", "date": "15/04/26", "rating": 5, "title": "Grain de peau affiné", "body": "<p>Mes pores sont moins visibles et ma peau plus nette. Un rituel du soir devenu indispensable.</p>" } },
-        "r5": { "type": "review", "settings": { "author": "Marine D.", "date": "02/04/26", "rating": 4, "title": "Belle découverte", "body": "<p>Application agréable et résultats progressifs. Livraison rapide et emballage très soigné.</p>" } }
+        "r1": {
+          "type": "review",
+          "settings": {
+            "author": "Camille R.",
+            "date": "12/05/26",
+            "verified": true,
+            "rating": 5,
+            "title": "Une peau transformée",
+            "body": "<p>Après trois semaines, mon teint est visiblement plus lumineux et ma peau plus souple. Je ne peux plus m'en passer.</p>"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "author": "Inès M.",
+            "date": "03/05/26",
+            "verified": true,
+            "rating": 5,
+            "title": "Texture sublime",
+            "body": "<p>La texture pénètre instantanément, sans effet collant. Le parfum est délicat et l'effet bonne mine immédiat.</p>"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "author": "Sophie L.",
+            "date": "27/04/26",
+            "verified": true,
+            "rating": 4,
+            "title": "Très satisfaite",
+            "body": "<p>Un sérum efficace sur les ridules. J'aurais aimé un flacon un peu plus grand, mais le résultat est là.</p>"
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "author": "Élodie V.",
+            "date": "15/04/26",
+            "verified": true,
+            "rating": 5,
+            "title": "Grain de peau affiné",
+            "body": "<p>Mes pores sont moins visibles et ma peau plus nette. Un rituel du soir devenu indispensable.</p>"
+          }
+        },
+        "r5": {
+          "type": "review",
+          "settings": {
+            "author": "Marine D.",
+            "date": "02/04/26",
+            "verified": true,
+            "rating": 4,
+            "title": "Belle découverte",
+            "body": "<p>Application agréable et résultats progressifs. Livraison rapide et emballage très soigné.</p>"
+          }
+        }
       },
-      "block_order": ["r1", "r2", "r3", "r4", "r5"]
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "heading": "Avis clients",
+        "show_filter": true,
+        "filter_label": "Filtrer",
+        "visible_count": 3,
+        "more_label": "Charger plus",
+        "write_label": "Écrire un avis",
+        "write_url": "",
+        "ask_label": "Poser une question",
+        "ask_url": ""
+      }
     },
     "news": {
       "type": "knr-news",
       "blocks": {
-        "n1": { "type": "article", "settings": { "label": "L'origine", "title": "Fondée en 2012 dans les Alpes", "body": "Maison Célestine est née de la passion d'une botaniste pour les plantes alpines et leurs propriétés régénérantes exceptionnelles." } },
-        "n2": { "type": "article", "settings": { "label": "La formule", "title": "12 ingrédients actifs sélectionnés", "body": "Chaque ingrédient est sourcé chez des producteurs engagés : huile de rose musquée, rétinol végétal, extrait de cactus Cactacaea." } },
-        "n3": { "type": "article", "settings": { "label": "L'expertise", "title": "15 ans de recherche en laboratoire", "body": "Notre laboratoire indépendant teste chaque formule sur des panels de peaux diverses, garantissant efficacité et tolérance." } },
-        "n4": { "type": "article", "settings": { "label": "L'engagement", "title": "97 % d'origine naturelle", "body": "Emballages recyclables, formules biodégradables, compensation carbone intégrale. Beauté responsable, du champ au flacon." } }
+        "n1": {
+          "type": "article",
+          "settings": {
+            "image": "shopify://shop_images/Product_Image_Container_a15c9b96-caed-413b-a9f5-b3b80d2a0c34.png",
+            "label": "L'origine",
+            "title": "Fondée en 2012 dans les Alpes",
+            "body": "Maison Célestine est née de la passion d'une botaniste pour les plantes alpines et leurs propriétés régénérantes exceptionnelles.",
+            "url": ""
+          }
+        },
+        "n2": {
+          "type": "article",
+          "settings": {
+            "image": "shopify://shop_images/Product_Image_Container-1_99bdc4c9-7136-4d87-b06b-55dace1db329.png",
+            "label": "La formule",
+            "title": "12 ingrédients actifs sélectionnés",
+            "body": "Chaque ingrédient est sourcé chez des producteurs engagés : huile de rose musquée, rétinol végétal, extrait de cactus Cactacaea.",
+            "url": ""
+          }
+        },
+        "n3": {
+          "type": "article",
+          "settings": {
+            "image": "shopify://shop_images/Product_Image_Container-1.png",
+            "label": "L'expertise",
+            "title": "15 ans de recherche en laboratoire",
+            "body": "Notre laboratoire indépendant teste chaque formule sur des panels de peaux diverses, garantissant efficacité et tolérance.",
+            "url": ""
+          }
+        },
+        "n4": {
+          "type": "article",
+          "settings": {
+            "image": "shopify://shop_images/Product_Image.png",
+            "label": "L'engagement",
+            "title": "97 % d'origine naturelle",
+            "body": "Emballages recyclables, formules biodégradables, compensation carbone intégrale. Beauté responsable, du champ au flacon.",
+            "url": ""
+          }
+        }
       },
-      "block_order": ["n1", "n2", "n3", "n4"]
+      "block_order": [
+        "n1",
+        "n2",
+        "n3",
+        "n4"
+      ],
+      "settings": {
+        "heading": "Latest news",
+        "link_label": "Voir tous les articles",
+        "link_url": "",
+        "blog": "",
+        "count": 4
+      }
     },
     "newsletter": {
       "type": "knr-newsletter",
       "settings": {
+        "image": "shopify://shop_images/9859136db17d131b50492fe1db2318b7b1a8868d.png",
+        "image_position": "left",
         "heading": "L'alliance de la science botanique et du luxe naturel pour une peau visiblement rajeunie en 4 semaines.",
-        "legal": "Formule brevetée, testée dermatologiquement, 97 % d'ingrédients d'origine naturelle.",
         "placeholder": "E-mail",
-        "button_label": "S’inscrire"
+        "button_label": "S’inscrire",
+        "legal": "Formule brevetée, testée dermatologiquement, 97 % d'ingrédients d'origine naturelle.",
+        "success_message": "Merci, votre inscription est confirmée."
       }
     },
     "reassurance": {
       "type": "knr-reassurance",
       "blocks": {
-        "c1": { "type": "column", "settings": { "title": "Livraison offerte", "text": "Livraison offerte dès 60 € d'achat en France métropolitaine." } },
-        "c2": { "type": "column", "settings": { "title": "Retours gratuits", "text": "Retours acceptés jusqu'à 30 jours après réception." } },
-        "c3": { "type": "column", "settings": { "title": "Paiement sécurisé", "text": "Paiement 100 % sécurisé par carte bancaire, PayPal ou virement." } },
-        "c4": { "type": "column", "settings": { "title": "Service client", "text": "Du lundi au vendredi de 9h à 18h par email et téléphone." } }
+        "c1": {
+          "type": "column",
+          "settings": {
+            "title": "Livraison offerte",
+            "text": "Livraison offerte dès 60 € d'achat en France métropolitaine."
+          }
+        },
+        "c2": {
+          "type": "column",
+          "settings": {
+            "title": "Retours gratuits",
+            "text": "Retours acceptés jusqu'à 30 jours après réception."
+          }
+        },
+        "c3": {
+          "type": "column",
+          "settings": {
+            "title": "Paiement sécurisé",
+            "text": "Paiement 100 % sécurisé par carte bancaire, PayPal ou virement."
+          }
+        },
+        "c4": {
+          "type": "column",
+          "settings": {
+            "title": "Service client",
+            "text": "Du lundi au vendredi de 9h à 18h par email et téléphone."
+          }
+        }
       },
-      "block_order": ["c1", "c2", "c3", "c4"]
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {}
     }
   },
-  "order": ["main", "ingredients", "how-to-use", "before-after", "faq", "reviews", "news", "newsletter", "reassurance"]
+  "order": [
+    "main",
+    "ingredients",
+    "how-to-use",
+    "before-after",
+    "faq",
+    "reviews",
+    "news",
+    "newsletter",
+    "reassurance"
+  ]
 }
