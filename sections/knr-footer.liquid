@@ -7,28 +7,37 @@
         assign heading = section.settings[hkey]
         assign menu = section.settings[mkey]
       -%}
-      <div class="knr-footer__col">
-        {%- if heading != blank -%}<h2 class="knr-footer__heading">{{ heading }}</h2>{%- endif -%}
-        {%- if menu != blank -%}
-          <ul class="knr-footer__links">
-            {%- for link in menu.links -%}
-              <li><a class="knr-footer__link" href="{{ link.url }}">{{ link.title }}</a></li>
-            {%- endfor -%}
-          </ul>
-        {%- endif -%}
-      </div>
+      {%- if heading != blank -%}
+        <details class="knr-footer__col knr-footer__col--acc" data-footer-acc open>
+          <summary class="knr-footer__heading">
+            <span class="knr-footer__heading-text">{{ heading }}</span>
+            <span class="knr-footer__col-icon">{% render 'knr-chevron' %}</span>
+          </summary>
+          {%- if menu != blank -%}
+            <div class="knr-footer__col-body" data-footer-acc-body>
+              <ul class="knr-footer__links">
+                {%- for link in menu.links -%}
+                  <li><a class="knr-footer__link" href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        </details>
+      {%- endif -%}
     {%- endfor -%}
 
     <div class="knr-footer__col knr-footer__col--about">
       {%- if section.settings.info_heading != blank -%}<h2 class="knr-footer__heading">{{ section.settings.info_heading }}</h2>{%- endif -%}
       {%- if section.settings.info_text != blank -%}<p class="knr-footer__about">{{ section.settings.info_text }}</p>{%- endif -%}
-      {%- if section.settings.cert_image != blank -%}
-        {{ section.settings.cert_image | image_url: width: 120 | image_tag: class: 'knr-footer__cert-logo', loading: 'lazy', alt: '' }}
-      {%- endif -%}
-      {%- if section.settings.cert_text != blank -%}<p class="knr-footer__cert-text">{{ section.settings.cert_text }}</p>{%- endif -%}
-      {%- if section.settings.cert_cta_text != blank -%}
-        <a class="knr-footer__cert-cta" href="{{ section.settings.cert_cta_url | default: '#' }}">{{ section.settings.cert_cta_text }}</a>
-      {%- endif -%}
+      <div class="knr-footer__cert">
+        {%- if section.settings.cert_image != blank -%}
+          {{ section.settings.cert_image | image_url: width: 120 | image_tag: class: 'knr-footer__cert-logo', loading: 'lazy', alt: '' }}
+        {%- endif -%}
+        {%- if section.settings.cert_text != blank -%}<p class="knr-footer__cert-text">{{ section.settings.cert_text }}</p>{%- endif -%}
+        {%- if section.settings.cert_cta_text != blank -%}
+          <a class="knr-footer__cert-cta" href="{{ section.settings.cert_cta_url | default: '#' }}">{{ section.settings.cert_cta_text }}</a>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 
@@ -58,6 +67,7 @@
 </footer>
 
 {{ 'knr-footer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'knr-footer.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
