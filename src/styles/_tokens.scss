@@ -1,16 +1,51 @@
 //  Design tokens
 
+// Couleurs
 $color-bg:     #f9f8f5;
+$color-white:  #ffffff;
 $color-text:   #000000;
 $color-muted:  #6b6b6b;
 $color-line:   #e6e2db;
 $color-accent: #000000;
 $color-gold:   #b5a282;
 $color-gold-light: #e2d3bb;
-$color-sand:   #e2decf;
+$color-sand:   #dcd5c3;
+$color-sand-light:   #DFDBD6;
 $color-faded:  rgba(0, 0, 0, 0.24);
 
 $font-primary: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
+
+// Échelle typo (px Figma) — consommée par les mixins text-* de _mixins.scss
+$fs-40: 40px;
+$fs-32: 32px;
+$fs-28: 28px;
+$fs-24: 24px;
+$fs-20: 20px;
+$fs-16: 16px;
+$fs-14: 14px;
+$fs-13: 13px;
+$fs-12: 12px;
+$fs-10: 10px;
+$fs-8:  8px;
+
+$lh-48: 48px;
+$lh-40: 40px;
+$lh-34: 34px;
+$lh-32: 32px;
+$lh-28: 28px;
+$lh-22: 22px;
+$lh-21: 21px;
+$lh-20: 20px;
+$lh-16: 16px;
+$lh-14: 14px;
+$lh-12: 12px;
+$lh-snug:  1.2;
+$lh-solid: 1;
+$lh-zero:  0;
+
+$ls-tight:  -0.04em;
+$ls-normal: -0.02em;
+$ls-wide:   0.02em;
 
 $design-desktop: 1440px;
 $design-mobile:  390px;

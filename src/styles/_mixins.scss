@@ -1,3 +1,5 @@
+@use "tokens" as *;
+
 //  Mixins
 $breakpoint: 750px;
 
@@ -9,39 +11,15 @@ $breakpoint: 750px;
   @media (max-width: ($breakpoint - 1px)) { @content; }
 }
 
-// Typographie — Inter, letter-spacing -2% (sauf hs1 : -4%)
-@mixin text-hs1 {
-  font-size: 40px;
-  line-height: 48px;
-  letter-spacing: -0.04em;
-}
-
-@mixin text-hs2 {
-  font-size: 24px;
-  line-height: 32px;
-  letter-spacing: -0.02em;
-}
-
-@mixin text-cta {
-  font-size: 13px;
-  line-height: 21px;
-  letter-spacing: -0.02em;
-}
-
-@mixin text-body {
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: -0.02em;
-}
-
-@mixin text-body-s {
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: -0.02em;
-}
-
-@mixin text-body-xs {
-  font-size: 10px;
-  line-height: 14px;
-  letter-spacing: -0.02em;
-}
+// Typographie — Inter (échelle dans _tokens.scss)
+@mixin text-hs1 { font-size: $fs-40; line-height: $lh-48; letter-spacing: $ls-tight; }
+@mixin text-hs2 { font-size: $fs-32; line-height: $lh-40; letter-spacing: $ls-tight; }
+@mixin text-hs3 { font-size: $fs-24; line-height: $lh-32; letter-spacing: $ls-normal; }
+@mixin text-hs4 { font-size: $fs-20; line-height: $lh-28; letter-spacing: $ls-normal; }
+@mixin text-cta { font-size: $fs-13; line-height: $lh-21; letter-spacing: $ls-normal; }
+@mixin text-body-l { font-size: $fs-14; line-height: $lh-22; letter-spacing: $ls-normal; }
+@mixin text-body { font-size: $fs-14; line-height: $lh-20; letter-spacing: $ls-normal; }
+@mixin text-body-s { font-size: $fs-12; line-height: $lh-20; letter-spacing: $ls-normal; }
+@mixin text-body-xs { font-size: $fs-10; line-height: $lh-14; letter-spacing: $ls-normal; }
+@mixin text-label { font-size: $fs-14; line-height: $lh-14; letter-spacing: $ls-normal; }
+@mixin text-badge { font-size: $fs-8; line-height: $lh-solid; letter-spacing: $ls-tight; }
