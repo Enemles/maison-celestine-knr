@@ -9,10 +9,14 @@
     "theme:dev": "shopify theme dev --store maison-celestine-knr.myshopify.com",
     "dev": "pnpm sass:build && concurrently -n SASS,THEME -c magenta,cyan \"pnpm sass:watch\" \"pnpm theme:dev\"",
     "build": "sass src/styles:assets --style=compressed --no-source-map",
-    "lint": "shopify theme check"
+    "lint": "shopify theme check",
+    "lint:css": "stylelint \"src/styles/**/*.scss\""
   },
   "devDependencies": {
     "concurrently": "^9.0.0",
-    "sass": "^1.80.0"
+    "sass": "^1.80.0",
+    "stylelint": "^17.13.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-declaration-strict-value": "^1.11.1"
   }
 }

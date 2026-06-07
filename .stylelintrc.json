@@ -1,0 +1,25 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "plugins": ["stylelint-declaration-strict-value"],
+  "rules": {
+    "scale-unlimited/declaration-strict-value": [
+      ["/color/", "background", "fill", "stroke", "font-size", "line-height", "letter-spacing"],
+      {
+        "ignoreValues": ["transparent", "currentColor", "inherit", "initial", "none", "#fcfbfc", "#1f1d1b", "#b23636"]
+      }
+    ],
+    "selector-class-pattern": null,
+    "rule-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "at-rule-empty-line-before": null,
+    "declaration-block-single-line-max-declarations": null,
+    "color-hex-length": null,
+    "color-function-notation": null,
+    "color-function-alias-notation": null,
+    "alpha-value-notation": null,
+    "value-keyword-case": null,
+    "property-no-vendor-prefix": null,
+    "scss/dollar-variable-colon-space-after": null,
+    "scss/dollar-variable-empty-line-before": null
+  }
+}
