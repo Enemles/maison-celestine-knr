@@ -6,18 +6,28 @@
 {%- endfor -%}
 
 <section class="knr-product" data-product>
+  {%- if m.benefits != blank -%}
+    <ul class="knr-product__hero-badges">
+      {%- for benefit in m.benefits.value -%}<li class="knr-product__badge">{{ benefit }}</li>{%- endfor -%}
+    </ul>
+  {%- endif -%}
   <div class="knr-product__gallery">
     {%- if product.media.size > 0 -%}
       {%- for media in product.media limit: 1 -%}
-        <figure class="knr-product__slide knr-product__slide--hero" data-zoom="{{ media | image_url: width: 2000 }}">
-          {{ media | image_url: width: 2400 | image_tag: loading: 'eager', sizes: '100vw', class: 'knr-product__img' }}
+        <figure class="knr-product__slide knr-product__slide--hero{% if m.mobile_hero == blank %} knr-product__slide--no-mobile{% endif %}" data-zoom="{{ media | image_url: width: 2000 }}">
+          <picture>
+            {%- if m.mobile_hero != blank -%}
+              <source media="(max-width: 749px)" srcset="{{ m.mobile_hero.value | image_url: width: 780 }} 780w, {{ m.mobile_hero.value | image_url: width: 1100 }} 1100w" sizes="100vw">
+            {%- endif -%}
+            {{ media | image_url: width: 2400 | image_tag: widths: '600, 900, 1200, 1500, 1800, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high', class: 'knr-product__img' }}
+          </picture>
         </figure>
       {%- endfor -%}
       {%- if product.media.size > 1 -%}
         <div class="knr-product__rest">
           {%- for media in product.media offset: 1 -%}
             <figure class="knr-product__slide" data-zoom="{{ media | image_url: width: 2000 }}">
-              {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 32vw, 100vw', class: 'knr-product__img' }}
+              {{ media | image_url: width: 1200 | image_tag: widths: '300, 450, 600, 900, 1200', sizes: '(min-width: 750px) 32vw, 100vw', loading: 'lazy', class: 'knr-product__img' }}
               <button type="button" class="knr-product__zoom" aria-label="Agrandir l'image"><svg viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 0v8M0 4h8" stroke="currentColor" stroke-width="2"/></svg></button>
             </figure>
           {%- endfor -%}
@@ -27,6 +37,8 @@
       <figure class="knr-product__slide knr-product__slide--hero knr-product__slide--empty"></figure>
     {%- endif -%}
   </div>
+
+  <div class="knr-product__progress" aria-hidden="true"><span class="knr-product__progress-fill"></span></div>
 
   <div class="knr-product__info">
     {%- form 'product', product, class: 'knr-product__form' -%}
@@ -49,17 +61,14 @@
             {%- endif -%}
 
           {%- when 'title' -%}
-            <div class="knr-product__head" {{ block.shopify_attributes }}>
-              <h1 class="knr-product__title">{{ product.title }}</h1>
-              <div class="knr-product__rating">
-                <span class="knr-product__rating-row">
-                  <span class="knr-product__stars" aria-hidden="true">
-                    {%- for i in (1..5) -%}{{ 'knr-icon-star.svg' | inline_asset_content }}{%- endfor -%}
-                  </span>
-                  <span class="knr-product__rating-score">{{ m.rating.value | default: 4.7 }}</span>
-                </span>
-                <span class="knr-product__rating-count">{{ m.rating_count.value | default: 200 }} avis</span>
-              </div>
+            <h1 class="knr-product__title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+            <div class="knr-product__rating">
+              <span class="knr-product__stars" aria-hidden="true">
+                {%- for i in (1..5) -%}{{ 'knr-icon-star.svg' | inline_asset_content }}{%- endfor -%}
+              </span>
+              <span class="knr-product__rating-score">{{ m.rating.value | default: 4.7 }}</span>
+              <span class="knr-product__rating-dot" aria-hidden="true"></span>
+              <span class="knr-product__rating-count">{{ m.rating_count.value | default: 200 }} avis</span>
             </div>
 
           {%- when 'indices' -%}
@@ -98,11 +107,8 @@
                 <span class="knr-product__price-current" data-price>{{ variant.price | money }}</span>
                 <s class="knr-product__price-compare" data-compare{% unless variant.compare_at_price > variant.price %} hidden{% endunless %}>{{ variant.compare_at_price | money }}</s>
               </span>
-              <span class="knr-product__price-unit" data-unit{% unless variant.unit_price_measurement %} hidden{% endunless %}>
-                {%- if variant.unit_price_measurement -%}
-                  {{ variant.unit_price | money }} par {% if variant.unit_price_measurement.reference_value != 1 %}{{ variant.unit_price_measurement.reference_value }} {% endif %}{{ variant.unit_price_measurement.reference_unit }}
-                {%- endif -%}
-              </span>
+              {%- capture unit_str -%}{%- render 'knr-unit-price', variant: variant -%}{%- endcapture -%}
+              <span class="knr-product__price-unit" data-unit{% if unit_str == blank %} hidden{% endif %}>{{ unit_str }}</span>
             </div>
 
           {%- when 'buy_buttons' -%}
@@ -200,7 +206,7 @@
                       {%- assign shown = shown | plus: 1 -%}
                       <a href="{{ p.url }}" class="knr-product__card">
                         <span class="knr-product__card-media">
-                          {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 320 | image_tag: loading: 'lazy', class: 'knr-product__card-img' }}{%- endif -%}
+                          {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 320 | image_tag: widths: '160, 240, 320, 480', sizes: '159px', loading: 'lazy', class: 'knr-product__card-img' }}{%- endif -%}
                           <span class="knr-product__card-plus" aria-hidden="true">{{ 'knr-icon-plus.svg' | inline_asset_content }}</span>
                         </span>
                         <span class="knr-product__card-info">
@@ -227,12 +233,50 @@
           "available": {{ v.available }},
           "price": {{ v.price | money | json }},
           "compareAt": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %},
-          "unit": {% if v.unit_price_measurement %}{{ v.unit_price | money | append: ' par ' | append: v.unit_price_measurement.reference_value | append: ' ' | append: v.unit_price_measurement.reference_unit | json }}{% else %}null{% endif %}
+          "unit": {%- capture vu -%}{%- render 'knr-unit-price', variant: v -%}{%- endcapture -%}{% if vu != blank %}{{ vu | json }}{% else %}null{% endif %}
         }{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ]
   </script>
 </section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | json }},
+  "url": {{ shop.url | append: product.url | json }},
+  {% if product.featured_media %}"image": {{ product.featured_media | image_url: width: 1400 | prepend: 'https:' | json }},{% endif %}
+  "brand": { "@type": "Brand", "name": {{ product.vendor | default: shop.name | json }} },
+  {% if m.rating != blank %}"aggregateRating": { "@type": "AggregateRating", "ratingValue": {{ m.rating.value | json }}, "reviewCount": {{ m.rating_count.value | default: 0 | json }}, "bestRating": 5 },{% endif %}
+  "offers": [
+    {%- for v in product.variants -%}
+    {
+      "@type": "Offer",
+      "name": {{ v.title | json }},
+      "sku": {{ v.sku | json }},
+      "price": {{ v.price | divided_by: 100.0 | json }},
+      "priceCurrency": {{ shop.currency | json }},
+      "availability": "https://schema.org/{% if v.available %}InStock{% else %}OutOfStock{% endif %}",
+      "url": {{ shop.url | append: v.url | json }}
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": {{ shop.name | json }}, "item": {{ shop.url | json }} }{% if crumb_collection %},
+    { "@type": "ListItem", "position": 2, "name": {{ crumb_collection.title | json }}, "item": {{ shop.url | append: crumb_collection.url | json }} },
+    { "@type": "ListItem", "position": 3, "name": {{ product.title | json }} }{% else %},
+    { "@type": "ListItem", "position": 2, "name": {{ product.title | json }} }{% endif %}
+  ]
+}
+</script>
 
 <script src="{{ 'knr-product.js' | asset_url }}" defer></script>
 {{ 'knr-product.css' | asset_url | stylesheet_tag }}

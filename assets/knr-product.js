@@ -139,3 +139,23 @@
     track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
   });
 })();
+
+/* ----- Mobile gallery progress bar ----- */
+(function () {
+  document.querySelectorAll('[data-product]').forEach(function (root) {
+    var gallery = root.querySelector('.knr-product__gallery');
+    var fill = root.querySelector('.knr-product__progress-fill');
+    if (!gallery || !fill) return;
+    var count = gallery.querySelectorAll('.knr-product__slide').length;
+    if (count < 2) { fill.style.width = '100%'; return; }
+    var thumb = 100 / count;
+    fill.style.width = thumb + '%';
+    var update = function () {
+      var max = gallery.scrollWidth - gallery.clientWidth;
+      var p = max > 0 ? gallery.scrollLeft / max : 0;
+      fill.style.transform = 'translateX(' + (p * (100 - thumb) / thumb * 100) + '%)';
+    };
+    gallery.addEventListener('scroll', update, { passive: true });
+    update();
+  });
+})();

@@ -1,0 +1,33 @@
+{%- comment -%}
+  Chaîne « prix à l'unité » pour une variante. Param: variant.
+  Utilise le prix à l'unité natif Shopify s'il est configuré, sinon le déduit
+  d'un titre du type « 15 mL » (prix ÷ quantité × 100 → par 100 <unité>).
+{%- endcomment -%}
+{%- liquid
+  assign v = variant
+  assign out = ''
+  if v.unit_price_measurement and v.unit_price_measurement.reference_unit != blank
+    assign ref = v.unit_price_measurement.reference_value
+    capture out
+      echo v.unit_price | money
+      echo ' par '
+      unless ref == 1
+        echo ref
+        echo ' '
+      endunless
+      echo v.unit_price_measurement.reference_unit
+    endcapture
+  else
+    assign parts = v.title | split: ' '
+    assign qty = parts[0] | times: 1.0
+    if qty > 0 and parts[1] != blank
+      assign up = v.price | times: 100 | divided_by: qty
+      capture out
+        echo up | money
+        echo ' par 100 '
+        echo parts[1]
+      endcapture
+    endif
+  endif
+  echo out | strip
+-%}

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .knr-product {
   position: relative;
   background: #fff;
@@ -116,32 +117,24 @@
   border-radius: 2px;
 }
 
-.knr-product__head {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-
 .knr-product__title {
   font-size: 24px;
   line-height: 32px;
   letter-spacing: -0.02em;
-  flex: 1;
   text-transform: uppercase;
 }
 
 .knr-product__rating {
-  flex-shrink: 0;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 4px;
 }
 
-.knr-product__rating-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+.knr-product__rating-dot {
+  flex-shrink: 0;
+  width: 2px;
+  height: 2px;
+  background: #e2d3bb;
 }
 
 .knr-product__stars {
@@ -580,8 +573,12 @@
   margin-top: 40px;
 }
 
-.knr-product__head {
+.knr-product__title {
   margin-top: 24px;
+}
+
+.knr-product__rating {
+  margin-top: 8px;
 }
 
 .knr-product__indices {
@@ -618,4 +615,148 @@
 
 .knr-product__form > :first-child {
   margin-top: 0;
+}
+
+.knr-product__hero-badges {
+  display: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.knr-product__progress {
+  display: none;
+}
+
+/* ----- Mobile (6:627) : galerie swiper plein écran + info en feuille ----- */
+@media (max-width: 749px) {
+  .knr-product__gallery {
+    flex-direction: row;
+    gap: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .knr-product__gallery::-webkit-scrollbar {
+    display: none;
+  }
+  /* la grille "rest" se fond dans la rangée du swiper */
+  .knr-product__rest {
+    display: contents;
+  }
+  .knr-product__gallery .knr-product__slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 39/55;
+    scroll-snap-align: start;
+  }
+  .knr-product__zoom {
+    display: none;
+  }
+  /* pas d'image mobile dédiée → on cadre sur le produit (à gauche du visuel desktop) */
+  .knr-product__slide--no-mobile .knr-product__img {
+    object-position: left center;
+  }
+  /* barre de progression de la galerie (sur le hero, au-dessus de la feuille) */
+  .knr-product__progress {
+    display: block;
+    position: relative;
+    z-index: 2;
+    width: 97.5px;
+    height: 0.8px;
+    margin: -130px auto 10px;
+    overflow: hidden;
+    background: #f9f8f5;
+  }
+  .knr-product__progress-fill {
+    display: block;
+    height: 100%;
+    background: #000000;
+    transition: transform 0.2s ease;
+  }
+  /* info = carte blanche inset 16px, sans radius */
+  .knr-product__info {
+    position: relative;
+    z-index: 2;
+    margin: 0 16px;
+    padding: 24px 16px;
+    border-radius: 0;
+  }
+  /* badges flottants sur le hero, fond blanc en mobile */
+  .knr-product__badges {
+    display: none;
+  }
+  .knr-product__hero-badges {
+    display: flex;
+    gap: 4px;
+    position: absolute;
+    top: 72px;
+    left: 50%;
+    z-index: 3;
+    transform: translateX(-50%);
+  }
+  .knr-product__hero-badges .knr-product__badge {
+    background: #fff;
+    border: 0;
+  }
+  /* product-info : titre 14px + prix haut-droite, note dessous, tailles pleines */
+  .knr-product__crumb {
+    display: none;
+  }
+  .knr-product__title {
+    margin-top: 0;
+    padding-right: 96px;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+  .knr-product__rating {
+    margin-top: 16px;
+  }
+  .knr-product__indices {
+    margin-top: 16px;
+  }
+  .knr-product__sizes {
+    margin-top: 24px;
+  }
+  .knr-product__add {
+    margin-top: 24px;
+  }
+  .knr-product__accordions {
+    margin-top: 24px;
+  }
+  .knr-product__related {
+    margin-top: 24px;
+  }
+  .knr-product__price {
+    position: absolute;
+    top: 24px;
+    right: 16px;
+    margin-top: 0;
+    align-items: flex-end;
+  }
+  .knr-product__price-current {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .knr-product__price-unit {
+    font-size: 8px;
+    line-height: 12px;
+    padding-bottom: 0;
+  }
+  .knr-product__size {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding-bottom: 2px;
+    border-bottom: 0.8px solid transparent;
+  }
+  .knr-product__size span {
+    border-bottom: 0;
+  }
+  .knr-product__size.is-selected {
+    border-bottom-color: #000000;
+  }
 }
