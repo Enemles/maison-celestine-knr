@@ -10,25 +10,25 @@
     apply();
   });
 
-  /* ----- Testimonials carousel ----- */
+  /* ----- Testimonials carousel (prev/next + auto) ----- */
   document.querySelectorAll('[data-ba-carousel]').forEach(function (carousel) {
     var slides = Array.prototype.slice.call(carousel.querySelectorAll('[data-ba-slide]'));
-    var dots = Array.prototype.slice.call(carousel.querySelectorAll('[data-ba-dot]'));
     if (slides.length < 2) return;
 
+    var prev = carousel.querySelector('[data-ba-prev]');
+    var next = carousel.querySelector('[data-ba-next]');
     var idx = 0;
     var timer;
+
     var show = function (i) {
       idx = (i + slides.length) % slides.length;
       slides.forEach(function (s, j) { s.classList.toggle('is-active', j === idx); });
-      dots.forEach(function (d, j) { d.classList.toggle('is-active', j === idx); });
     };
-    var start = function () { timer = setInterval(function () { show(idx + 1); }, 5000); };
+    var start = function () { timer = setInterval(function () { show(idx + 1); }, 6000); };
     var stop = function () { clearInterval(timer); };
 
-    dots.forEach(function (d, j) {
-      d.addEventListener('click', function () { show(j); stop(); start(); });
-    });
+    if (prev) prev.addEventListener('click', function () { show(idx - 1); stop(); start(); });
+    if (next) next.addEventListener('click', function () { show(idx + 1); stop(); start(); });
     carousel.addEventListener('mouseenter', stop);
     carousel.addEventListener('mouseleave', start);
 
