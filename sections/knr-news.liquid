@@ -18,7 +18,7 @@
       {%- endif -%}
     </div>
 
-    <div class="knr-news__grid">
+    <div class="knr-news__grid" data-news-track>
       {%- if use_blog -%}
         {%- for article in blog.articles limit: limit -%}
           <a class="knr-news__card" href="{{ article.url }}">
@@ -29,9 +29,16 @@
                 {{ 'image' | placeholder_svg_tag: 'knr-news__img knr-news__img--ph' }}
               {%- endif -%}
             </div>
-            {%- if article.tags.size > 0 -%}<span class="knr-news__label">{{ article.tags.first }}</span>{%- endif -%}
-            <h3 class="knr-news__card-title">{{ article.title }}</h3>
-            <p class="knr-news__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 18 }}</p>
+            <div class="knr-news__details">
+              {%- if article.tags.size > 0 -%}
+                <div class="knr-news__label-group">
+                  <span class="knr-news__label">{{ article.tags.first }}</span>
+                  <span class="knr-news__rule" aria-hidden="true"></span>
+                </div>
+              {%- endif -%}
+              <h3 class="knr-news__card-title">{{ article.title }}</h3>
+              <p class="knr-news__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 18 }}</p>
+            </div>
           </a>
         {%- endfor -%}
       {%- else -%}
@@ -44,17 +51,29 @@
                 {{ 'image' | placeholder_svg_tag: 'knr-news__img knr-news__img--ph' }}
               {%- endif -%}
             </div>
-            {%- if block.settings.label != blank -%}<span class="knr-news__label">{{ block.settings.label }}</span>{%- endif -%}
-            <h3 class="knr-news__card-title">{{ block.settings.title }}</h3>
-            {%- if block.settings.body != blank -%}<p class="knr-news__excerpt">{{ block.settings.body }}</p>{%- endif -%}
+            <div class="knr-news__details">
+              {%- if block.settings.label != blank -%}
+                <div class="knr-news__label-group">
+                  <span class="knr-news__label">{{ block.settings.label }}</span>
+                  <span class="knr-news__rule" aria-hidden="true"></span>
+                </div>
+              {%- endif -%}
+              <h3 class="knr-news__card-title">{{ block.settings.title }}</h3>
+              {%- if block.settings.body != blank -%}<p class="knr-news__excerpt">{{ block.settings.body }}</p>{%- endif -%}
+            </div>
           </a>
         {%- endfor -%}
       {%- endif -%}
+    </div>
+
+    <div class="knr-news__progress" data-news-progress aria-hidden="true">
+      <span class="knr-news__progress-thumb" data-news-thumb></span>
     </div>
   </div>
 </section>
 
 {{ 'knr-news.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'knr-news.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
@@ -85,9 +104,9 @@
       "name": "KNR Journal",
       "blocks": [
         { "type": "article", "settings": { "label": "L'origine", "title": "Fondée en 2012 dans les Alpes", "body": "Maison Célestine est née de la passion d'une botaniste pour les plantes alpines et leurs propriétés régénérantes exceptionnelles." } },
-        { "type": "article", "settings": { "label": "La formule", "title": "12 ingrédients actifs sélectionnés", "body": "Chaque ingrédient est sourcé chez des producteurs engagés : huile de rose musquée, rétinol végétal, extrait de cactus Cactacaea." } },
+        { "type": "article", "settings": { "label": "La formule", "title": "12 ingrédients actifs sélectionnés", "body": "Chaque ingrédient est sourcé chez des producteurs engagés : huile de rosier muscat, rétinol végétal, extrait de cactus Cactaceae." } },
         { "type": "article", "settings": { "label": "L'expertise", "title": "15 ans de recherche en laboratoire", "body": "Notre laboratoire indépendant teste chaque formule sur des panels de peaux diverses, garantissant efficacité et tolérance." } },
-        { "type": "article", "settings": { "label": "L'engagement", "title": "97 % d'origine naturelle", "body": "Emballages recyclables, formules biodégradables, compensation carbone intégrale. Beauté responsable, du champ au flacon." } }
+        { "type": "article", "settings": { "label": "L'engagement", "title": "97 % naturel certifié", "body": "Emballages recyclables, formules biodégradables, compensation carbone intégrale. Beauté responsable, du champ au flacon." } }
       ]
     }
   ]
