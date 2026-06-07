@@ -1,4 +1,4 @@
-<header class="knr-header">
+<header class="knr-header" data-header>
   <div class="knr-header__inner">
     <a class="knr-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
       {{ 'knr-logo.svg' | inline_asset_content }}
@@ -12,13 +12,26 @@
 
     <div class="knr-header__icons">
       <span class="knr-header__icon" aria-hidden="true">{{ 'knr-icon-location.svg' | inline_asset_content }}</span>
-      <a class="knr-header__icon" href="{{ routes.account_url }}" aria-label="Compte">{{ 'knr-icon-account.svg' | inline_asset_content }}</a>
+      <a class="knr-header__icon knr-header__icon--account" href="{{ routes.account_url }}" aria-label="Compte">{{ 'knr-icon-account.svg' | inline_asset_content }}</a>
       <a class="knr-header__icon" href="{{ routes.search_url }}" aria-label="Recherche">{{ 'knr-icon-search.svg' | inline_asset_content }}</a>
       <a class="knr-header__icon knr-header__cart" href="{{ routes.cart_url }}" aria-label="Panier ({{ cart.item_count }})">
         {{ 'knr-icon-cart.svg' | inline_asset_content }}
         <span class="knr-header__cart-count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
       </a>
+      <button type="button" class="knr-header__burger" data-menu-toggle aria-expanded="false" aria-controls="knr-header-menu" aria-label="Ouvrir le menu">
+        <span class="knr-header__burger-line"></span>
+        <span class="knr-header__burger-line"></span>
+      </button>
     </div>
+  </div>
+
+  <div class="knr-header__menu" id="knr-header-menu" data-menu>
+    <nav class="knr-header__menu-nav" aria-label="Menu">
+      {%- for link in section.settings.menu.links -%}
+        <a class="knr-header__menu-link" href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <a class="knr-header__menu-account" href="{{ routes.account_url }}">Compte</a>
   </div>
 </header>
 

@@ -72,8 +72,88 @@
   text-align: center;
 }
 
+/* Burger + panneau de menu (mobile uniquement) */
+.knr-header__burger {
+  display: none;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+.knr-header__burger-line {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 16px;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.3s ease;
+}
+.knr-header__burger-line:nth-child(1) { transform: translateY(-2px); }
+.knr-header__burger-line:nth-child(2) { transform: translateY(2px); }
+
+.knr-header__menu {
+  display: none;
+}
+
 @include mobile {
-  .knr-header__nav {
-    display: none;
+  .knr-header__nav { display: none; }
+
+  .knr-header__logo svg { height: 14px; }
+
+  .knr-header__icons { gap: 16px; }
+  .knr-header__icon svg { width: 16px; height: 16px; }
+  .knr-header__icon--account { display: none; }
+
+  .knr-header__burger { display: inline-flex; }
+
+  // barre au-dessus du panneau
+  .knr-header__inner { position: relative; z-index: 2; }
+
+  // burger -> croix à l'ouverture
+  .knr-header.is-menu-open .knr-header__burger-line:nth-child(1) { transform: translateY(0) rotate(45deg); }
+  .knr-header.is-menu-open .knr-header__burger-line:nth-child(2) { transform: translateY(0) rotate(-45deg); }
+
+  // panneau plein écran
+  .knr-header__menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    padding: 104px 24px 40px;
+    background: $color-bg;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    overflow-y: auto;
+  }
+  .knr-header.is-menu-open .knr-header__menu {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+
+  .knr-header__menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .knr-header__menu-link {
+    @include text-hs2;
+    padding: 8px 0;
+  }
+  .knr-header__menu-account {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 0.8px solid $color-line;
+    @include text-body-s;
   }
 }
+
+// Verrou de défilement quand le panneau mobile est ouvert
+body.knr-menu-open { overflow: hidden; }
