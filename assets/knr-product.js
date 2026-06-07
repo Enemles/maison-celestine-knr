@@ -21,7 +21,7 @@
       if (els.price) els.price.textContent = v.price;
       if (els.compare) { els.compare.textContent = v.compareAt || ''; els.compare.hidden = !v.compareAt; }
       if (els.unit) { els.unit.textContent = v.unit || ''; els.unit.hidden = !v.unit; }
-      if (els.add) { els.add.disabled = !v.available; els.add.textContent = v.available ? 'Ajouter au panier' : 'Rupture de stock'; }
+      if (els.add) { els.add.disabled = !v.available; els.add.textContent = v.available ? (els.add.dataset.addLabel || 'Ajouter au panier') : (els.add.dataset.soldLabel || 'Rupture de stock'); }
       if (els.stock && !v.available) els.stock.textContent = 'Actuellement indisponible.';
     };
 

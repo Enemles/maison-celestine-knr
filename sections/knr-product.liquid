@@ -121,8 +121,10 @@
             </div>
 
           {%- when 'buy_buttons' -%}
-            <button type="submit" name="add" class="knr-product__add" data-add{% unless variant.available %} disabled{% endunless %} {{ block.shopify_attributes }}>
-              {%- if variant.available -%}Ajouter au panier{%- else -%}Rupture de stock{%- endif -%}
+            {%- assign add_label = block.settings.add_label | default: 'Ajouter au panier' -%}
+            {%- assign sold_label = block.settings.sold_out_label | default: 'Rupture de stock' -%}
+            <button type="submit" name="add" class="knr-product__add" data-add data-add-label="{{ add_label | escape }}" data-sold-label="{{ sold_label | escape }}"{% unless variant.available %} disabled{% endunless %} {{ block.shopify_attributes }}>
+              {%- if variant.available -%}{{ add_label }}{%- else -%}{{ sold_label }}{%- endif -%}
             </button>
 
           {%- when 'reassurance' -%}
@@ -164,7 +166,7 @@
             <div class="knr-product__accordions" data-accordions {{ block.shopify_attributes }}>
               <div class="knr-product__acc is-open">
                 <button type="button" class="knr-product__acc-head" aria-expanded="true">
-                  <span>Description</span>
+                  <span>{{ block.settings.desc_label | default: 'Description' }}</span>
                   <span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span>
                 </button>
                 <div class="knr-product__acc-wrap"><div class="knr-product__acc-body"><div class="knr-product__acc-text rte">{{ product.description }}</div></div></div>
@@ -172,7 +174,7 @@
               {%- if m.benefits_text != blank -%}
                 <div class="knr-product__acc">
                   <button type="button" class="knr-product__acc-head" aria-expanded="false">
-                    <span>Bienfaits</span>
+                    <span>{{ block.settings.benefits_label | default: 'Bienfaits' }}</span>
                     <span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span>
                   </button>
                   <div class="knr-product__acc-wrap"><div class="knr-product__acc-body"><div class="knr-product__acc-text rte">{{ m.benefits_text }}</div></div></div>
@@ -181,7 +183,7 @@
               {%- if m.ingredients != blank -%}
                 <div class="knr-product__acc">
                   <button type="button" class="knr-product__acc-head" aria-expanded="false">
-                    <span>Ingrédients clés</span>
+                    <span>{{ block.settings.ingredients_label | default: 'Ingrédients clés' }}</span>
                     <span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span>
                   </button>
                   <div class="knr-product__acc-wrap"><div class="knr-product__acc-body"><div class="knr-product__acc-text rte">{{ m.ingredients }}</div></div></div>
@@ -190,7 +192,7 @@
               {%- if m.skin_types != blank -%}
                 <div class="knr-product__acc">
                   <button type="button" class="knr-product__acc-head" aria-expanded="false">
-                    <span>Adapté aux peaux</span>
+                    <span>{{ block.settings.skin_label | default: 'Adapté aux peaux' }}</span>
                     <span class="knr-product__acc-icon" aria-hidden="true">{{ 'knr-icon-chevron.svg' | inline_asset_content }}</span>
                   </button>
                   <div class="knr-product__acc-wrap"><div class="knr-product__acc-body"><div class="knr-product__acc-text rte">{{ m.skin_types }}</div></div></div>
@@ -296,12 +298,20 @@
   "blocks": [
     { "type": "breadcrumb", "name": "Fil d'Ariane", "limit": 1 },
     { "type": "badges", "name": "Badges bienfaits", "limit": 1 },
-    { "type": "title", "name": "Titre + note", "limit": 1 },
-    { "type": "indices", "name": "Indices (Yuka / INCI)", "limit": 1 },
+    { "type": "title", "name": "Titre + note", "limit": 1, "settings": [
+      { "type": "text", "id": "reviews_label", "label": "Libellé « avis »", "default": "avis" }
+    ] },
+    { "type": "indices", "name": "Indices (Yuka / INCI)", "limit": 1, "settings": [
+      { "type": "text", "id": "index_1_label", "label": "Indice 1 — nom", "default": "Yuka" },
+      { "type": "text", "id": "index_2_label", "label": "Indice 2 — nom", "default": "INCI Beauty" }
+    ] },
     { "type": "intro", "name": "Accroche", "limit": 1 },
     { "type": "variant_picker", "name": "Sélecteur de taille", "limit": 1 },
     { "type": "price", "name": "Prix", "limit": 1 },
-    { "type": "buy_buttons", "name": "Bouton d'achat", "limit": 1 },
+    { "type": "buy_buttons", "name": "Bouton d'achat", "limit": 1, "settings": [
+      { "type": "text", "id": "add_label", "label": "Libellé — disponible", "default": "Ajouter au panier" },
+      { "type": "text", "id": "sold_out_label", "label": "Libellé — rupture", "default": "Rupture de stock" }
+    ] },
     {
       "type": "reassurance",
       "name": "Réassurance (slider)",
@@ -314,7 +324,12 @@
         { "type": "text", "id": "message_3", "label": "Message 3", "default": "Retours gratuits sous 30 jours" }
       ]
     },
-    { "type": "collapsibles", "name": "Accordéons", "limit": 1 },
+    { "type": "collapsibles", "name": "Accordéons", "limit": 1, "settings": [
+      { "type": "text", "id": "desc_label", "label": "Titre — Description", "default": "Description" },
+      { "type": "text", "id": "benefits_label", "label": "Titre — Bienfaits", "default": "Bienfaits" },
+      { "type": "text", "id": "ingredients_label", "label": "Titre — Ingrédients", "default": "Ingrédients clés" },
+      { "type": "text", "id": "skin_label", "label": "Titre — Peaux", "default": "Adapté aux peaux" }
+    ] },
     {
       "type": "complementary",
       "name": "Complétez votre rituel",

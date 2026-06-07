@@ -13,8 +13,9 @@
       {%- if section.settings.heading != blank -%}
         <h2 class="knr-news__title">{{ section.settings.heading }}</h2>
       {%- endif -%}
-      {%- if section.settings.link_label != blank -%}
-        <a class="knr-news__all" href="{{ blog.url | default: section.settings.link_url | default: '#' }}">{{ section.settings.link_label }}</a>
+      {%- assign news_all_url = blog.url | default: section.settings.link_url -%}
+      {%- if section.settings.link_label != blank and news_all_url != blank -%}
+        <a class="knr-news__all" href="{{ news_all_url }}">{{ section.settings.link_label }}</a>
       {%- endif -%}
     </div>
 
