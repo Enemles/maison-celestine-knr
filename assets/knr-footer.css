@@ -1,13 +1,14 @@
 .knr-footer {
   background: #f9f8f5;
   color: #000000;
-  padding: 80px 40px 0;
+  padding: 80px 0 0;
 }
 
 .knr-footer__top {
   display: grid;
   grid-template-columns: repeat(3, 1fr) 1.5fr;
   gap: 40px;
+  padding: 0 40px;
 }
 
 .knr-footer__heading {
@@ -84,7 +85,7 @@ summary.knr-footer__heading::-webkit-details-marker {
 
 .knr-footer__wordmark {
   color: #000000;
-  padding: 2.5rem 0 1.5rem;
+  padding: 2.5rem 40px 1.5rem;
 }
 .knr-footer__wordmark svg {
   display: block;
@@ -103,7 +104,7 @@ summary.knr-footer__heading::-webkit-details-marker {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.75rem 0;
+  padding: 1.75rem 40px;
   border-top: 1px solid rgba(0, 0, 0, 0.24);
 }
 
@@ -158,6 +159,7 @@ summary.knr-footer__heading::-webkit-details-marker {
     margin: 0;
     font-size: 12px;
     line-height: 20px;
+    letter-spacing: -0.02em;
   }
   .knr-footer__col--acc {
     border-top: 1px solid rgba(0, 53, 146, 0.24);
@@ -195,6 +197,8 @@ summary.knr-footer__heading::-webkit-details-marker {
   }
   .knr-footer__link {
     font-size: 12px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
   }
   .knr-footer__col--about {
     display: flex;
@@ -207,6 +211,7 @@ summary.knr-footer__heading::-webkit-details-marker {
     max-width: none;
     font-size: 12px;
     line-height: 20px;
+    letter-spacing: -0.02em;
   }
   .knr-footer__cert {
     display: flex;
@@ -222,6 +227,7 @@ summary.knr-footer__heading::-webkit-details-marker {
     border-bottom: 1px solid #dcd5c3;
     font-size: 12px;
     line-height: 20px;
+    letter-spacing: -0.02em;
   }
   .knr-footer__cert-cta {
     display: inline-flex;
@@ -233,6 +239,7 @@ summary.knr-footer__heading::-webkit-details-marker {
     text-decoration: none;
     font-size: 12px;
     line-height: 20px;
+    letter-spacing: -0.02em;
   }
   .knr-footer__wordmark {
     padding: 0;

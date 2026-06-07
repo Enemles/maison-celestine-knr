@@ -2,7 +2,7 @@
 @use "mixins" as *;
 
 .knr-htu {
-  background: $color-bg;
+  background: $color-white;
   color: $color-text;
   padding: 40px 0 120px;
 }
@@ -18,9 +18,7 @@
 
 .knr-htu__title {
   margin: 0;
-  font-size: 32px;
-  line-height: 40px;
-  letter-spacing: -0.04em;
+  @include text-hs2;
 }
 
 .knr-htu__intro {
@@ -69,23 +67,19 @@
 
 .knr-htu__num {
   margin: 0;
-  font-size: 14px;
-  line-height: 14px;
-  letter-spacing: -0.04em;
+  @include text-label;
   text-transform: uppercase;
   color: $color-text;
 }
 
 .knr-htu__step-title {
-  @include text-hs2;
+  @include text-hs3;
   margin: 0;
 }
 
 .knr-htu__step-body {
   margin: 0;
-  font-size: 14px;
-  line-height: 22px;
-  letter-spacing: -0.02em;
+  @include text-body-l;
   color: $color-text;
 
   p { margin: 0; }
@@ -108,7 +102,7 @@
   width: 98px;
   height: 1px;
   overflow: hidden;
-  background: #dcd5c3;
+  background: $color-sand;
 }
 
 .knr-htu__progress-thumb {

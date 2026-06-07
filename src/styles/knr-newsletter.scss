@@ -4,7 +4,7 @@
 .knr-newsletter {
   display: flex;
   align-items: stretch;
-  background: #ffffff;
+  background: $color-white;
   color: $color-text;
   padding: 120px 40px;
 }
@@ -39,9 +39,7 @@
 
 .knr-newsletter__title {
   margin: 0;
-  font-size: 40px;
-  line-height: 48px;
-  letter-spacing: -0.04em;
+  @include text-hs1;
 }
 
 .knr-newsletter__info {
@@ -55,7 +53,7 @@
   align-items: center;
   height: 48px;
   padding-left: 24px;
-  border: 0.8px solid #dcd5c3;
+  border: 0.8px solid $color-sand;
   border-radius: 2px;
   overflow: hidden;
 }
@@ -66,9 +64,7 @@
   padding: 0;
   border: 0;
   background: none;
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: -0.02em;
+  @include text-body-s;
   color: $color-text;
 
   &::placeholder { color: $color-muted; }
@@ -82,10 +78,8 @@
   border: 0;
   border-radius: 0 2px 2px 0;
   background: $color-text;
-  color: #ffffff;
-  font-size: 13px;
-  line-height: 21px;
-  letter-spacing: -0.02em;
+  color: $color-white;
+  @include text-cta;
   cursor: pointer;
   transition: opacity 0.2s ease;
 
@@ -94,22 +88,18 @@
 
 .knr-newsletter__legal {
   margin: 0;
-  font-size: 10px;
-  line-height: 14px;
-  letter-spacing: -0.02em;
+  @include text-body-xs;
   color: $color-text;
 }
 
 .knr-newsletter__success {
   margin: 0;
-  font-size: 14px;
-  line-height: 20px;
+  @include text-body;
   color: $color-text;
 }
 .knr-newsletter__error {
   margin: 0;
-  font-size: 12px;
-  line-height: 20px;
+  @include text-body-s;
   color: #b23636;
 }
 
@@ -128,7 +118,7 @@
     flex: none;
     padding: 0;
   }
-  .knr-newsletter__title { font-size: 32px; line-height: 40px; }
+  .knr-newsletter__title { @include text-hs2; }
 
   // champ et bouton empilés : chacun sa boîte pleine largeur
   .knr-newsletter__field {
@@ -146,7 +136,7 @@
     width: 100%;
     height: 48px;
     padding: 0 24px;
-    border: 0.8px solid #dcd5c3;
+    border: 0.8px solid $color-sand;
     border-radius: 2px;
   }
   .knr-newsletter__submit {

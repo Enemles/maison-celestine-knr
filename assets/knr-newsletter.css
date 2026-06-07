@@ -111,6 +111,7 @@
   margin: 0;
   font-size: 14px;
   line-height: 20px;
+  letter-spacing: -0.02em;
   color: #000000;
 }
 
@@ -118,6 +119,7 @@
   margin: 0;
   font-size: 12px;
   line-height: 20px;
+  letter-spacing: -0.02em;
   color: #b23636;
 }
 
@@ -139,6 +141,7 @@
   .knr-newsletter__title {
     font-size: 32px;
     line-height: 40px;
+    letter-spacing: -0.04em;
   }
   .knr-newsletter__field {
     flex-direction: column;

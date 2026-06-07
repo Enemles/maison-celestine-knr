@@ -1,8 +1,8 @@
 .knr-announcement {
   overflow: hidden;
   max-height: 80px;
-  background: #000;
-  color: #fff;
+  background: #000000;
+  color: #ffffff;
   text-align: center;
   transition: max-height 0.35s ease, opacity 0.3s ease;
 }

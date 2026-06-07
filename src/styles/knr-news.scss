@@ -2,7 +2,7 @@
 @use "mixins" as *;
 
 .knr-news {
-  background: $color-bg;
+  background: $color-white;
   color: $color-text;
   padding: 40px 0;
 }
@@ -25,18 +25,14 @@
 
 .knr-news__title {
   margin: 0;
-  font-size: 32px;
-  line-height: 40px;
-  letter-spacing: -0.04em;
+  @include text-hs2;
 }
 
 .knr-news__all {
   flex-shrink: 0;
   padding-bottom: 2px;
   border-bottom: 0.8px solid $color-text;
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: -0.02em;
+  @include text-body-s;
   color: $color-text;
   text-decoration: none;
   transition: color 0.2s ease, border-color 0.2s ease;
@@ -89,9 +85,7 @@
   gap: 8px;
 }
 .knr-news__label {
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: -0.02em;
+  @include text-body-s;
   color: $color-text;
 }
 .knr-news__rule {
@@ -101,15 +95,13 @@
 }
 
 .knr-news__card-title {
-  @include text-hs2;
+  @include text-hs3;
   margin: 0;
 }
 
 .knr-news__excerpt {
   margin: 0;
-  font-size: 14px;
-  line-height: 22px;
-  letter-spacing: -0.02em;
+  @include text-body-l;
   color: $color-text;
 }
 
@@ -120,7 +112,7 @@
   width: 98px;
   height: 1px;
   overflow: hidden;
-  background: #dcd5c3;
+  background: $color-sand;
 }
 .knr-news__progress-thumb {
   display: block;
@@ -131,7 +123,7 @@
 }
 
 @include mobile {
-  .knr-news { padding: 40px 0 64px; }
+  .knr-news { padding: 0 0 64px; }
   .knr-news__inner { gap: 40px; padding: 0 24px; }
 
   // le head éclate dans l'inner -> titre en haut, lien renvoyé en bas

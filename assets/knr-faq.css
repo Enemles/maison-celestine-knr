@@ -1,5 +1,5 @@
 .knr-faq {
-  background: #f9f8f5;
+  background: #ffffff;
   color: #000000;
   padding: 96px 40px;
 }
@@ -11,8 +11,8 @@
 
 .knr-faq__title {
   margin: 0 0 40px;
-  font-size: 32px;
-  line-height: 40px;
+  font-size: 40px;
+  line-height: 48px;
   letter-spacing: -0.04em;
   text-align: center;
 }
@@ -24,9 +24,6 @@
 
 .knr-faq__item {
   border-top: 0.8px solid rgba(0, 0, 0, 0.24);
-}
-.knr-faq__item:last-child {
-  border-bottom: 0.8px solid rgba(0, 0, 0, 0.24);
 }
 
 .knr-faq__head {
@@ -46,8 +43,8 @@
 }
 
 .knr-faq__q {
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 24px;
+  line-height: 32px;
   letter-spacing: -0.02em;
 }
 
@@ -89,19 +86,21 @@
 
 @media (max-width: 749px) {
   .knr-faq {
-    padding: 56px 20px;
+    padding: 40px 20px;
   }
   .knr-faq__title {
-    font-size: 24px;
-    line-height: 32px;
-    letter-spacing: -0.02em;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.04em;
     margin-bottom: 28px;
   }
   .knr-faq__head {
     gap: 16px;
+    padding: 20px 0;
   }
   .knr-faq__q {
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.02em;
   }
 }

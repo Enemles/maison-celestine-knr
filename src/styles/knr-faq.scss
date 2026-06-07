@@ -1,8 +1,8 @@
-@use "tokens" as *;
-@use "mixins" as *;
+@use 'tokens' as *;
+@use 'mixins' as *;
 
 .knr-faq {
-  background: $color-bg;
+  background: $color-white;
   color: $color-text;
   padding: 96px 40px;
 }
@@ -14,9 +14,7 @@
 
 .knr-faq__title {
   margin: 0 0 40px;
-  font-size: 32px;
-  line-height: 40px;
-  letter-spacing: -0.04em;
+  @include text-hs1;
   text-align: center;
 }
 
@@ -27,10 +25,6 @@
 
 .knr-faq__item {
   border-top: 0.8px solid $color-faded;
-
-  &:last-child {
-    border-bottom: 0.8px solid $color-faded;
-  }
 }
 
 .knr-faq__head {
@@ -42,14 +36,16 @@
   cursor: pointer;
   list-style: none;
 
-  &::-webkit-details-marker { display: none; }
-  &::marker { content: ""; }
+  &::-webkit-details-marker {
+    display: none;
+  }
+  &::marker {
+    content: '';
+  }
 }
 
 .knr-faq__q {
-  font-size: 20px;
-  line-height: 28px;
-  letter-spacing: -0.02em;
+  @include text-hs3;
 }
 
 .knr-faq__icon {
@@ -82,16 +78,25 @@
 
   p {
     margin: 0 0 12px;
-    &:last-child { margin-bottom: 0; }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 
 @include mobile {
-  .knr-faq { padding: 56px 20px; }
+  .knr-faq {
+    padding: 40px 20px;
+  }
   .knr-faq__title {
     @include text-hs2;
     margin-bottom: 28px;
   }
-  .knr-faq__head { gap: 16px; }
-  .knr-faq__q { font-size: 16px; line-height: 22px; }
+  .knr-faq__head {
+    gap: 16px;
+    padding: 20px 0;
+  }
+  .knr-faq__q {
+    @include text-hs3;
+  }
 }

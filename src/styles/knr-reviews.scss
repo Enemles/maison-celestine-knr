@@ -6,16 +6,14 @@
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  background: #ffffff;
+  background: $color-white;
   color: $color-text;
   padding: 96px 40px 120px;
 }
 
 .knr-reviews__title {
   margin: 0;
-  font-size: 32px;
-  line-height: 40px;
-  letter-spacing: -0.04em;
+  @include text-hs2;
   text-align: center;
 }
 
@@ -23,7 +21,7 @@
 .knr-rating {
   position: relative;
   display: inline-block;
-  line-height: 0;
+  line-height: $lh-zero;
 }
 .knr-rating__layer {
   display: flex;
@@ -60,6 +58,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  text-align: center;
 }
 .knr-reviews__score-line {
   display: flex;
@@ -99,7 +98,7 @@
 .knr-reviews__bar {
   position: relative;
   flex: 1;
-  height: 6px;
+  height: 12px;
   overflow: hidden;
   background: $color-bg;
 }
@@ -108,7 +107,7 @@
   top: 0;
   left: 0;
   height: 100%;
-  background: #dcd5c3;
+  background: $color-sand;
 }
 .knr-reviews__bar-n {
   @include text-body-xs;
@@ -146,7 +145,7 @@
 .knr-reviews__btn--solid {
   background: $color-text;
   border: 1px solid $color-text;
-  color: #ffffff;
+  color: $color-white;
 
   &:hover {
     opacity: 0.85;
@@ -159,7 +158,7 @@
 
   &:hover {
     background: $color-text;
-    color: #ffffff;
+    color: $color-white;
   }
 }
 
@@ -222,9 +221,7 @@
   @include text-body-s;
 }
 .knr-reviews__badge {
-  font-size: 8px;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  @include text-badge;
   text-transform: uppercase;
   padding: 4px;
   border: 0.5px solid $color-text;
@@ -255,11 +252,10 @@
 
 @include mobile {
   .knr-reviews {
-    padding: 56px 20px 72px;
+    padding: 40px 20px 64px;
   }
   .knr-reviews__title {
-    font-size: 26px;
-    line-height: 32px;
+    @include text-hs3;
   }
   .knr-reviews__summary {
     flex-direction: column;

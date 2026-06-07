@@ -4,7 +4,7 @@
 .knr-ingredients {
   position: relative;
   padding: 80px 0;
-  background: $color-bg;
+  background: $color-white;
 }
 
 /* Full-bleed image + overlay manifesto */
@@ -35,7 +35,7 @@
   align-items: center;
   gap: 16px;
   padding: 40px;
-  color: #ffffff;
+  color: $color-white;
 }
 .knr-ingredients__intro {
   flex: 1 0 0;
@@ -44,14 +44,12 @@
   gap: 8px;
 }
 .knr-ingredients__label {
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: -0.02em;
+  @include text-body-s;
 }
 .knr-ingredients__rule {
   width: 16px;
   height: 1px;
-  background: #ffffff;
+  background: $color-white;
 }
 .knr-ingredients__manifesto {
   flex-shrink: 0;
@@ -62,16 +60,12 @@
   gap: 16px;
 }
 .knr-ingredients__manifesto-text {
-  font-size: 32px;
-  line-height: 40px;
-  letter-spacing: -0.04em;
+  @include text-hs2;
 
   p { margin: 0; }
 }
 .knr-ingredients__attribution {
-  font-size: 10px;
-  line-height: 12px;
-  letter-spacing: -0.04em;
+  @include text-body-xs;
 }
 
 /* Product callout (quick add) */
@@ -81,7 +75,7 @@
   bottom: 24px;
   width: 561px;
   max-width: calc(100% - 80px);
-  background: #ffffff;
+  background: $color-white;
   border: 1px solid $color-bg;
 }
 .knr-ingredients__form {
@@ -124,9 +118,7 @@
 }
 .knr-ingredients__name {
   margin: 0;
-  font-size: 14px;
-  line-height: 14px;
-  letter-spacing: -0.02em;
+  @include text-label;
   text-transform: uppercase;
 }
 .knr-ingredients__variants {
@@ -135,9 +127,7 @@
 }
 .knr-ingredients__variant {
   position: relative;
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: -0.02em;
+  @include text-body-s;
   cursor: pointer;
 
   input {
@@ -155,9 +145,7 @@
 }
 .knr-ingredients__price {
   margin: 0;
-  font-size: 14px;
-  line-height: 22px;
-  letter-spacing: -0.02em;
+  @include text-body-l;
 }
 
 .knr-ingredients__add {
@@ -167,10 +155,8 @@
   border: 0;
   border-radius: 2px;
   background: $color-text;
-  color: #ffffff;
-  font-size: 13px;
-  line-height: 21px;
-  letter-spacing: -0.02em;
+  color: $color-white;
+  @include text-cta;
   cursor: pointer;
   transition: opacity 0.2s ease;
 
@@ -196,7 +182,7 @@
     max-width: none;
     gap: 16px;
   }
-  .knr-ingredients__manifesto-text { font-size: 22px; line-height: 24px; }
+  .knr-ingredients__manifesto-text { @include text-hs3; }
   .knr-ingredients__callout {
     display: none;
   }

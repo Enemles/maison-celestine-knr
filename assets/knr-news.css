@@ -1,5 +1,5 @@
 .knr-news {
-  background: #f9f8f5;
+  background: #ffffff;
   color: #000000;
   padding: 40px 0;
 }
@@ -135,7 +135,7 @@
 
 @media (max-width: 749px) {
   .knr-news {
-    padding: 40px 0 64px;
+    padding: 0 0 64px;
   }
   .knr-news__inner {
     gap: 40px;

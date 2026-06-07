@@ -7,11 +7,12 @@
   margin: 0 auto;
   padding: 0 24px;
   min-height: 56px;
-  color: #000000;
+  color: #ffffff;
 }
 
 .knr-header__logo {
   display: inline-flex;
+  color: #fcfbfc;
 }
 .knr-header__logo svg {
   height: 17px;
@@ -19,6 +20,13 @@
 }
 .knr-header__logo svg [fill] {
   fill: currentColor;
+}
+
+.knr-header-group.is-scrolled .knr-header__inner,
+.knr-header.is-menu-open .knr-header__inner,
+.knr-header-group.is-scrolled .knr-header__logo,
+.knr-header.is-menu-open .knr-header__logo {
+  color: #000000;
 }
 
 .knr-header__nav {
@@ -43,8 +51,8 @@
   color: inherit;
 }
 .knr-header__icon svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 .knr-header__icon svg [stroke] {
   stroke: currentColor;
@@ -58,9 +66,9 @@
   height: 16px;
   padding: 0 4px;
   border-radius: 100px;
-  background: #000000;
-  color: #fff;
-  font-size: 0.62rem;
+  color: #000000;
+  background: #ffffff;
+  font-size: 10px;
   line-height: 16px;
   text-align: center;
 }
