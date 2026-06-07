@@ -1,5 +1,5 @@
-@use "tokens" as *;
-@use "mixins" as *;
+@use 'tokens' as *;
+@use 'mixins' as *;
 
 .knr-reviews {
   display: flex;
@@ -25,8 +25,12 @@
   display: inline-block;
   line-height: 0;
 }
-.knr-rating__layer { display: flex; }
-.knr-rating__base { color: $color-line; }
+.knr-rating__layer {
+  display: flex;
+}
+.knr-rating__base {
+  color: $color-line;
+}
 .knr-rating__fill {
   position: absolute;
   top: 0;
@@ -81,6 +85,12 @@
   flex-direction: column;
   gap: 8px;
 }
+
+@include mobile {
+  .knr-reviews__bars {
+    width: 50%;
+  }
+}
 .knr-reviews__bar-row {
   display: flex;
   align-items: center;
@@ -128,21 +138,29 @@
   border-radius: 2px;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
 }
 .knr-reviews__btn--solid {
   background: $color-text;
   border: 1px solid $color-text;
   color: #ffffff;
 
-  &:hover { opacity: 0.85; }
+  &:hover {
+    opacity: 0.85;
+  }
 }
 .knr-reviews__btn--outline {
   background: none;
   border: 1px solid $color-text;
   color: $color-text;
 
-  &:hover { background: $color-text; color: #ffffff; }
+  &:hover {
+    background: $color-text;
+    color: #ffffff;
+  }
 }
 
 /* Review list */
@@ -182,7 +200,9 @@
   padding-bottom: 16px;
   border-bottom: 1px solid $color-faded;
 }
-.knr-reviews__item.is-hidden { display: none; }
+.knr-reviews__item.is-hidden {
+  display: none;
+}
 
 .knr-reviews__item-head {
   display: flex;
@@ -222,7 +242,9 @@
 .knr-reviews__body {
   @include text-body-s;
 
-  p { margin: 0; }
+  p {
+    margin: 0;
+  }
 }
 
 .knr-reviews__footer {
@@ -232,15 +254,23 @@
 }
 
 @include mobile {
-  .knr-reviews { padding: 56px 20px 72px; }
-  .knr-reviews__title { font-size: 26px; line-height: 32px; }
+  .knr-reviews {
+    padding: 56px 20px 72px;
+  }
+  .knr-reviews__title {
+    font-size: 26px;
+    line-height: 32px;
+  }
   .knr-reviews__summary {
     flex-direction: column;
+    align-items: center;
     gap: 24px;
   }
   .knr-reviews__actions {
     align-items: stretch;
     width: 100%;
   }
-  .knr-reviews__btn { width: 100%; }
+  .knr-reviews__btn {
+    width: 100%;
+  }
 }
