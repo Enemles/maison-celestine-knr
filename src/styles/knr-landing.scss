@@ -1,0 +1,88 @@
+@use "tokens" as *;
+@use "mixins" as *;
+
+// Hero plein écran de la home : sombre pour que le header overlay (texte clair)
+// reste lisible, et CTA proéminent vers la page produit (contourne la redirection
+// de la page mot de passe vers l'accueil).
+.knr-landing {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #1f1d1b;
+  color: $color-white;
+}
+
+.knr-landing__img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.knr-landing__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.1) 30%,
+    rgba(0, 0, 0, 0.2) 60%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.knr-landing__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 640px;
+  padding: 0 40px 96px;
+}
+
+.knr-landing__eyebrow {
+  @include text-body-s;
+  text-transform: uppercase;
+  letter-spacing: $ls-wide;
+}
+
+.knr-landing__title {
+  @include text-hs1;
+  margin: 0;
+}
+
+.knr-landing__text {
+  @include text-body-l;
+  max-width: 48ch;
+  margin: 0;
+}
+
+.knr-landing__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  padding: 0 32px;
+  border-radius: 2px;
+  background: $color-white;
+  color: $color-text;
+  @include text-cta;
+  transition: opacity 0.2s ease;
+
+  &:hover { opacity: 0.85; }
+}
+
+@include mobile {
+  .knr-landing__content {
+    gap: 20px;
+    padding: 0 24px 64px;
+  }
+  .knr-landing__title { @include text-hs2; }
+  .knr-landing__cta { width: 100%; }
+}
